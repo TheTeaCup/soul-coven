@@ -1,0 +1,37 @@
+{
+"TOKEN":"NzM1MzEzMDI5MDE2ODQ2NDg3.Xxecqg.JnWfDyoGp1LTINBpMB3I9Jzzh7w",
+  "serverID": "734953770961600593",
+  "channelID": "735712512485359716",
+  "reactionEmoji": "⭐",
+  "threshold": 2,
+  "hexcolor": "f2ea00",
+  "dateCutoff": 30,
+  "fetchLimit": 100,
+  
+  "yourID":"338192747754160138",
+  "setupCMD": "!ckhfdkfghdgi4547563",
+  "deleteSetupCMD": "false",
+  "initialMessage": "**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**",
+  "embedMessage": "React to the emoji that matches the role you wish to receive. \nIf you would like to remove the role, simply remove your reaction!",
+  "embedFooter": "Role Reactions",
+    "roles": [
+    "updates",
+    "minor",
+    "18+",
+    "dms-open",
+    "dms-closed",
+    "dms-ask"
+  ],
+  "reactions": [
+      "⬆️",
+      "🔞",
+      "🧑",
+      "🆗",
+      "📕",
+      "❓"
+  ],
+  "embed": true,
+  "embedColor": "#2C2F33",
+  "PORT": "1267"
+ 
+}
