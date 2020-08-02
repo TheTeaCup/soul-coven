@@ -1,14 +1,14 @@
 {
-"TOKEN":"NzM1MzEzMDI5MDE2ODQ2NDg3.Xxecqg.JnWfDyoGp1LTINBpMB3I9Jzzh7w",
-  "serverID": "734953770961600593",
-  "channelID": "735712512485359716",
+"TOKEN":"BOTTOKEN",
+  "serverID": "ID",
+  "channelID": "ID",
   "reactionEmoji": "⭐",
   "threshold": 2,
   "hexcolor": "f2ea00",
   "dateCutoff": 30,
   "fetchLimit": 100,
   
-  "yourID":"338192747754160138",
+  "yourID":"owner",
   "setupCMD": "!ckhfdkfghdgi4547563",
   "deleteSetupCMD": "false",
   "initialMessage": "**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**",
