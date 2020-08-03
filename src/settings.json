@@ -9,7 +9,7 @@
   "fetchLimit": 100,
   
   "yourID":"owner",
-  "setupCMD": "!ckhfdkfghdgi4547563",
+  "setupCMD": "!reactembed",
   "deleteSetupCMD": "false",
   "initialMessage": "**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**",
   "embedMessage": "React to the emoji that matches the role you wish to receive. \nIf you would like to remove the role, simply remove your reaction!",
@@ -32,6 +32,8 @@
   ],
   "embed": true,
   "embedColor": "#2C2F33",
-  "PORT": "1267"
+  "PORT": "WEBSITEPORT",
+  "secret": "discord-bot-secret",
+  "mongo": "mongo-db"
  
 }
