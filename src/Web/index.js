@@ -20,7 +20,7 @@ console.log("Soul Coven (Web) Site is starting...");
 const Coven = require("../Bot/CovenClient.js");
 
 
-const MainRoute = require("./Web/Routes/Main.js");
+const MainRoute = require("./Routes/Main.js");
 /*
 const APIRoute = require("./Web/Routes/APIRoute.js");
 const MeRoute = require("./Web/Routes/MeRoute.js");
