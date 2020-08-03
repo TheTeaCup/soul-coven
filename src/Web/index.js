@@ -19,8 +19,9 @@ console.log("Soul Coven (Web) Site is starting...");
 
 const Coven = require("../Bot/CovenClient.js");
 
+
+const MainRoute = require("./Web/Routes/Main.js");
 /*
-const MainRoute = require("./Web/Routes/MainRoute.js");
 const APIRoute = require("./Web/Routes/APIRoute.js");
 const MeRoute = require("./Web/Routes/MeRoute.js");
 const UserRoute = require("./Web/Routes/UserRoute.js");
@@ -52,8 +53,8 @@ passport.use(
   new strategy(
     {
       clientID: "735313029016846487",
-      clientSecret: "///",
-      callbackURL: "http://***/api/callback",
+      clientSecret: settings.secret,
+      callbackURL: "http://154.27.68.232:1267/api/callback",
       scope: ["identify"]
     },
     (accessToken, refreshToken, profile, done) => {
@@ -68,7 +69,7 @@ app.use(
   session({
     store: new MongoStore({
       url:
-        "//"
+        settings.mongo
     }),
     secret: "FROPT",
     resave: false,
@@ -118,7 +119,8 @@ app.use((req, res, next) => {
 /**
  * Routes
  */
-/*app.use("/", MainRoute);
+app.use("/", MainRoute);
+/*
 app.use("/me", MeRoute);
 app.use("/user", UserRoute);
 app.use("/signs", SignsRoute);
@@ -177,7 +179,7 @@ app.use(function(req, res) {
   const payload = {
     url: req.originalUrl,
     main: `/`,
-    mbl: `Astronomy Bot`,
+    site: `Soul Coven`,
     error: "Not found"
   };
   res.status(404).render("error.ejs", {
@@ -190,7 +192,7 @@ app.use(function(req, res) {
 });
 
 /**
- * Let our application listen to a specific port and connect to Discord.
+ * Let our application listen to a specific port
  */
 const Listener = Server.listen(settings.PORT, () => {
   console.log(
