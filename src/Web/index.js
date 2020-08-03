@@ -52,8 +52,8 @@ passport.use(
   new strategy(
     {
       clientID: "735313029016846487",
-      clientSecret: "XAa88fJKtaNBZtZmlE7id7gyNgYt7npn",
-      callbackURL: "http://154.27.68.232:1267/api/callback",
+      clientSecret: "///",
+      callbackURL: "http://***/api/callback",
       scope: ["identify"]
     },
     (accessToken, refreshToken, profile, done) => {
@@ -68,7 +68,7 @@ app.use(
   session({
     store: new MongoStore({
       url:
-        "mongodb://teacup:56836@bumperpremium-shard-00-00-pacps.mongodb.net:27017,bumperpremium-shard-00-01-pacps.mongodb.net:27017,bumperpremium-shard-00-02-pacps.mongodb.net:27017/test?ssl=true&replicaSet=BumperPremium-shard-0&authSource=admin&retryWrites=true"
+        "//"
     }),
     secret: "FROPT",
     resave: false,
