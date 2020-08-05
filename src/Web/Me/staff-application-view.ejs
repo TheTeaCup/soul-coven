@@ -1,0 +1,151 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/me", pageType: "" }) %>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/page.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
+<script src="https://use.fontawesome.com/bfddc8ce66.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous" async></script>
+
+
+<main>
+  <div class="jumbotron secondary-jumbotron bg-transparent">
+      <div class="container">
+            <h1>Staff Application </h1>
+            <center><h2 style="font-size:20px;">You are viewing, <%- Coven.users.cache.get(inf).tag %>'s Staff Application</h2></center>
+      </div>
+  </div>
+  
+<% if(user) { %>
+<% let allowed = [];
+allowed.push(inf)
+Coven.Developers.map(g=>allowed.push(g))
+%>
+
+
+<center>
+  <% if(Coven.Developers.includes(user.id)) { %>
+       <a class="btn btn-success" href="/me/staff-application/<%- key %>/approve"><i class="fa fa-pen"></i>&nbsp; Approve </a>
+       <a class="btn btn-warning" href="/me/staff-application/<%- key %>/reject"><i class="fa fa-pen"></i>&nbsp; Reject</a>
+    <% } %>
+    
+   <% if(allowed.includes(user.id)) { %>
+          <a class="btn btn-danger" href="/me/staff-application/<%- key %>/remove"><i class="fa fa-pen"></i>&nbsp; Remove </a>
+   <% } %>
+</center>
+    <% 
+    let al = "warning"
+    if(status === "approved") { al = "success" }
+    if(status === "rejected") { al = "danger" }
+    %>
+    
+<div class="container">
+ <center>
+   <div class="row" role="alert">
+     <div class="col-md-12" role="alert">
+       <div class="alert alert-primary alert-<%- al %>" role="alert">
+         <h4 class="alert-heading"> Application Status: <%- status %> <% if(status === "rejected") { %> Your application was rejected, you should get a DM from a staff member on the reason why. you will also be able to resubmit but you must wait 2 days. <% } %> </h4>
+         
+      </div>
+    </div>
+  </div>
+ </center>
+</div>
+    
+<% } %>
+  
+  <div class="container">
+   <div id="errormessage"></div>
+   <div class="col-lg-7 card server-form-panel">
+      <article class="card-body">
+         <form action="" method="post" role="form">
+            <input type="hidden" name="id" value=">">
+
+              <h5>Name And Age <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user" style="padding:0"></i></span>
+               </div>
+               <input name="info" id="info" class="form-control xtags" placeholder="What is your name and how old are you." type="text" value="<%- age %>" disabled>
+            </div>
+           <p class="help-block">- Ex: Logan 15
+            </p>
+            <br>
+
+            <h5>What type of witch are you? And how long have you been practicing? <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-magic" style="padding:0"></i></span>
+               </div>
+               <input name="type" id="type" class="form-control xtags" placeholder="What type of witch craft do you specify in? How long have you been..." type="text" value="<%- type %>" disabled>
+            </div>
+           <p class="help-block">- Ex: Green Witch and 3 years
+            </p>
+            <br>
+           
+        <h5>What hemisphere and timezone are you? <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-pencil" style="padding:0"></i></span>
+               </div>
+               <input name="tz" id="tz" class="form-control xtags" placeholder="where are you from?" type="text" value="<%- tz %>" disabled>
+            </div>
+           <p class="help-block">- Ex: Northern Hemisphere and Eastern Timezone
+            </p>
+            <br>
+            
+            
+        <h5>If you could change or improve something in the server what would it be and why? <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+             <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-question" style="padding:0"></i></span>
+               </div>
+               <textarea onchange="xcheck()" name="change" id="change" height="auto" class="form-control" rows="10" placeholder="What would you change?" maxlength="15000" data-max="15000" data-min="100" disabled><%- change %></textarea>
+            </div>
+            <p class="help-block">- If nothing put nothing. <br> - Please put detail in what you'd change.
+            </p>
+              <br>
+              
+      <h5>Why should we choose you? <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+             <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="far fa-thumbs-up" style="padding:0"></i></span>
+               </div>
+               <textarea onchange="xcheck()" name="what" id="what" height="auto" class="form-control" rows="5" placeholder="What makes you a good candidate" maxlength="15000" data-max="15000" data-min="100" disabled><%- why %></textarea>
+            </div>
+            <p class="help-block">- Please put detail in why we should choose you over other applicants.
+            </p>
+              <br>
+              
+     <h5>What’s your strengths and weaknesses <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+             <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-fist-raised" style="padding:0"></i></span>
+               </div>
+               <textarea onchange="xcheck()" name="sw" id="sw" height="auto" class="form-control" rows="5" placeholder="What help/hurts you the most" maxlength="15000" data-max="15000" data-min="100" disabled><%- sw %></textarea>
+            </div>
+            <p class="help-block">- This helps us understand what job we should give you within the server.
+            </p>
+              <br>
+              
+      <h5>Do you feel comfortable helping/teaching others <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-chalkboard-teacher" style="padding:0"></i></span>
+               </div>
+               <input name="help" id="help" class="form-control xtags" placeholder="Are you able to teach or help?" type="text" value="<%- helping %>" disabled>
+              
+            </div>
+           <p class="help-block">- it's a yes or no question :)
+            </p>
+            <br>
+
+         </form>
+      </article>
+   </div>
+</div>
+  
+</main>
+
+<script>
+$('textarea').autoResize();
+</script>

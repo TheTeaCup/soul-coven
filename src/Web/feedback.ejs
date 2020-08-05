@@ -1,0 +1,93 @@
+<%- include('./Blocks/Header.ejs', { Coven, user, Page: "Error", Redirect: "/me", pageType: "" }) %>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" type="text/css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<div class="py-5 bg-">
+<div class="container">
+  <% if(user) { %>
+   <% if(ErrorMessage === "no_message") { %>
+<div class="container">
+ <center>
+   <div class="row" role="alert">
+     <div class="col-md-12" role="alert">
+       <div class="alert alert-primary alert-danger" role="alert">
+         <button type="button" class="close" data-dismiss="alert">×</button>
+         <h4 class="alert-heading">Oops, there is a problem..</h4>
+         <p class="mb-0">To send Feedback you need to give a description.</p>
+       </div>
+    </div>
+  </div>
+ </center>
+</div>
+  <% } %>
+<% } %>
+<div class="row">
+<div class="col-md-12">
+<div class="card">
+<div class="card-body">
+<center>
+<h4><img class="img-fluid d-block mx-auto" src="" width="">Feedback Area</h4>
+<br />
+Welcome to the Feedback Area for Soul Coven. You can report bugs & suggestions via this forms.<br /><br /><b>Before posting, please verify if your bug/suggestion isn't listed on the #feedback channel of our discord guild.</b>
+<br /><br />
+<ul class="nav navv-pills" style="background-color: #fff;"> <% if(user) { %>
+<li><a style="margin: 8px" class="btn btn-primary btn-sm btn-warning text-white" data-toggle="pill" href="#bug">Report a bug</a></li>
+<li><a class="btn btn-primary btn-sm btn-success text-white" data-toggle="pill" href="#suggestion">Suggestion</a></li> 
+  </center>
+
+  <% } else { %>
+       <br>
+<div class="container">
+ <center>
+   <div class="row" role="alert">
+     <div class="col-md-12" role="alert">
+       <div class="alert alert-primary alert-danger" role="alert">
+         <h4 class="alert-heading">Oops, there is a problem..</h4>
+         <p class="mb-0">You need to login to submit. <br>  <a id="login" href="/login?redirect=/feedback" class="btn btn-sm btn-outline-danger">Login</a></p>
+      </div>
+    </div>
+  </div>
+ </center>
+</div>
+<% } %>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div style="margin-top: 15px;" class="row">
+<div class="col-md-12">
+<div class="tab-content">
+<div id="bug" class="card tab-pane fade in">
+<div class="card-body">
+<h4>I would like to file a bug report.</h4>
+<form method="post" action="/feedback/post/bug">
+<div class="form-group">
+<label>Write down what happen and in what circumstances the bug appeared.</label>
+<textarea type="text" name="bug" rows="4" maxlength="300" class="form-control" placeholder="Write here.."></textarea>
+</div>
+<button type="submit" class="btn btn-success text-white">Submit</button>
+</form>
+</div>
+</div>
+<div id="suggestion" class="card tab-pane fade">
+<div class="card-body">
+<h4>I have a suggestion!</h4>
+<form method="post" action="/feedback/post/suggestion">
+<div class="form-group">
+<label>Write down your suggestion! You can include multiple suggestion at once.</label>
+<textarea type="text" name="suggestion" rows="4" maxlength="300" class="form-control" placeholder="Write here.."></textarea>
+</div>
+<button type="submit" class="btn btn-success text-white">Submit</button>
+</form>
+</div>
+</div>
+</div>
+  <br><br><br><br><br><br><br><br><br><br>
+</div>
+</div>
+</div>
+</div>

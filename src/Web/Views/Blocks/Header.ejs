@@ -1,0 +1,192 @@
+<!DOCTYPE html> 
+<html lang="en">
+  <head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    
+    <link rel="preconnect" href="https://cdn.discordapp.com">
+    <link href="/images/pent.png" id="favicon" rel="shortcut icon">
+    
+    <!-- when themes get added other code goes here -->
+    <link href="/css/bw.css" rel="stylesheet">
+    <link href="/css/text-fonts.css" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/js/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <script src="https://kit.fontawesome.com/75db8f9097.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/css/mdb.min.css" rel="stylesheet">
+    
+    <script async src="https://arc.io/widget.js#tFzopDn6"></script>
+    
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:200,400,700" rel="stylesheet">
+    
+ <% if(pageType.sign === true) { %>
+    
+     <title>Soul Coven | <%- Page %></title>
+    <link href="<%= si.image %>" rel="icon" type="image/x-icon">
+    
+    <% } else if (pageType.user == true) { %>
+    
+    <% if(info) { %>
+    <title><%- info.name %>| Soul Coven</title> 
+    <% } else { %>
+    <title>Name#0000 | Soul Coven</title> 
+    <% } %>
+
+    <link href="<%- avatar %>" rel="icon" type="image/x-icon"> 
+    <meta charset="utf-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta name="description" content="<%- Mythical.Desc %>">
+    <meta name="keywords" content="Discord Bot"/> 
+    <meta name="twitter:card" value="summary" /> 
+    <meta name="twitter:title" content="<%- Mythical.user.username %> Bot" /> 
+    <meta name="twitter:description" content="<%- Mythical.Desc %>" /> 
+    <meta name="twitter:image" content="<%- Mythical.Image %>">
+    <meta name="theme-color" content="<%- Mythical.Color %>"/>
+    <meta property="og:title" content="<%- Mythical.user.username %> Bot" /> 
+    <meta property="og:url" content="<%- Mythical.Website %>" />
+    <meta property="og:description" content="<%- Mythical.Desc %>" /> 
+    <meta property="og:image" content="<%- Mythical.Image %>" /> 
+    <meta name="apple-mobile-web-app-capable" content="yes"> 
+    <meta name="mobile-web-app-capable" content="yes"> 
+    
+     <% } else { %>
+    
+    <title>Soul Coven | <%- Page %> </title> 
+    <link href="<%- Coven.Image %>" rel="icon" type="image/x-icon"> 
+    <meta charset="utf-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta name="description" content="<%- Coven.Desc %>">
+    <meta name="author" content="">
+    <meta name="keywords" content="Discord Bot, Astrology, Discord Community"/> 
+    
+    <meta name="twitter:card" value="summary" /> 
+    <meta name="twitter:title" content="Soul Coven" /> 
+    <meta name="twitter:description" content="<%- Coven.Desc %>" /> 
+    <meta name="twitter:image" content="<%- Coven.Image %>">
+    <meta name="theme-color" content="<%- Coven.WebColor %>"/>
+    <meta property="og:title" content="Soul Coven" /> 
+    <meta property="og:url" content="<%- Coven.Website %>" />
+    <meta property="og:description" content="<%- Coven.Desc %>" /> 
+    <meta property="og:image" content="<%- Coven.Image %>" /> 
+    <meta name="apple-mobile-web-app-capable" content="yes"> 
+    <meta name="mobile-web-app-capable" content="yes">  
+
+  
+  <% } %>
+</head>
+
+<body>
+
+  <nav class="is-widescreen is-mobile" id="menu">
+    <center><nav class="navbar navbar-expand-lg navbar-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button><div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+      
+        <li class="nav-item">
+          <div class="dropdown"><button style="outline: none;" onclick="window.location.assign('/')" class="dropbtn"> Home </button>
+          </div>
+        </li>
+        
+        <li class="nav-item">
+          <div class="dropdown">
+            <button style="outline: none;" onclick="window.open('/discord','_blank')" class="dropbtn"> Discord </button>
+          </div>
+        </li>
+        
+        <li class="nav-item">
+          <div class="dropdown">
+            <button style="outline: none;" onclick="window.location.assign('/news')" class="dropbtn"> News </button>
+          </div>
+        </li> 
+        
+        
+        <li class="nav-item">
+        <div class="dropdown">
+          <button style="outline: none;" onclick="window.location.assign('/forum')" class="dropbtn"> Forum </button>
+        </div>
+        </li> 
+        
+  <% if(user) { %> 
+<div class="dropdown">
+    <button style="outline: none;" class="dropbtn">More</button>
+    <div class="dropdown-content">
+      <a href="/terms-of-service">Terms of Service</a>
+      <a rel="nofollow" target="blank" href="https://astrology.mythicalbots.xyz/">Astronomy Bot</a>
+      <a href="/feedback">Feedback</a>
+      <a href="/me/staff-application">Staff Application</a>
+
+      <div class="dropdown-divider"></div> 
+      <a onClick="toggleDarkMode (this)">
+        <i class="fas fa-sync-alt"></i> Style Switcher</a>
+    </div>
+</div> 
+  <% } else { %>
+        <div class="dropdown">
+          <button style="outline: none;" class="dropbtn">More</button>
+          <div class="dropdown-content">
+            <a href="/terms-of-service">Terms of Service</a>
+            <a rel="nofollow" target="blank" href="https://astrology.mythicalbots.xyz/">Astronomy Bot</a>
+            <a href="/botlists">Botlists</a>
+
+            </div>
+        </div> 
+        <% } %> 
+      </div>
+      </div>  
+      
+      <ul class="navbar-nav">  
+        <% if(user) {  %>  
+  <% if(Coven.Developers.includes(user.id)) { %> 
+        
+      <div class="dropdown">
+        <button style="outline: none;" class="dropbtn"><a>Staff Settings</a></button>
+        <div class="dropdown-content"> 
+          
+        <% if(Coven.Developers.includes(user.id)) { %>  
+          <a href="/admin">Admin</a> 
+          <% } %> 
+          
+        <a href="/me/users">Users</a>
+        </div>
+        </div>
+      <% } %>
+        <div class="dropdown">
+          <button style="outline: none;" class="dropbtn">
+            <img src="https://mythicalbots.xyz/bot/<%= user.id %>/avatar" width="30" height="30" class="d-inline-block align-top rounded-circle" style="vertical-align: middle; width: 38px !important; height: 38px !important;" alt="">
+          </button>
+          <div class="dropdown-content">
+            <a href="/user/<%= user.id %>">Profile</a>
+            <a href="/me">Your Servers</a>
+            <div class="dropdown-divider"></div>
+            <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </div> 
+        <% } else { %>
+        <div class=navbar-item>
+          <div class=buttons>
+            <a class="button btn is-blurple" onclick="window.location.assign('/login?redirect=<%= Redirect %>')"><i class="fab fa-discord"></i>&nbsp; Login</a>
+          </div>
+        </div> 
+        <% } %>
+      </ul>
+      </nav>
+    </center>
+    </nav>
+    
+<noscript>
+  <br>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    We're sorry but client doesn't work properly without JavaScript enabled. Please enable it to continue.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+    </noscript>
+  </body>

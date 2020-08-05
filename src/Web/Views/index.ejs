@@ -1,0 +1,11 @@
+<%- include('./Blocks/Header.ejs', { Coven, user, Page, Redirect: "/me", pageType: "" }) %>
+
+<center><h1>Hello! Welcome to Soul Covens Offical Website!</h1><br>
+<h5 class="sub">Soul Coven is a online coven for all witchligns to join and learn about Witchcraft and even Astrology! <br> We are still working on your website but if you want to join our discord just <u><a onclick="window.open('/discord','_blank')">click here.</a></u><% if(user){ %><br>Welcome, you are signed in. <% } else { %><br>For more information please <a onclick="window.location.assign('/login?redirect=/me')">Login</a> <% } %></h5>
+</center>
+
+<br>
+
+<center>
+
+<h5 class="sub"> If you're from our discord are are looking for the staff application please <u><a onclick="window.location.assign('/login?redirect=/me/staff-application')">Click Here</a></u> and you will be redirected to login then to the application. </h5>
