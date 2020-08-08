@@ -27,12 +27,12 @@ exports.run = async (Mythical, message, args) => {
 
   let level;
   let group;
-  let type;
+  let type = [];
 
   if (info) {
     level = info.level;
     group = info.group;
-    type = info.type;
+    type = type.push(info.type.map(g=>g));
   }
 
   if (!args[1]) {
@@ -65,7 +65,7 @@ exports.run = async (Mythical, message, args) => {
         ID: Target,
         group: group || "",
         level: level || "",
-        type: type || "",
+        type: type || [],
         rank: ""
       };
 
@@ -78,7 +78,7 @@ exports.run = async (Mythical, message, args) => {
         ID: Target,
         group: group || "",
         level: level || "",
-        type: type || "",
+        type: type || [],
         rank: "baby-witch"
       };
 
@@ -95,7 +95,7 @@ exports.run = async (Mythical, message, args) => {
         ID: Target,
         group: group || "",
         level: level || "",
-        type: type || "",
+        type: type || [],
         rank: ""
       };
 
@@ -108,7 +108,7 @@ exports.run = async (Mythical, message, args) => {
         ID: Target,
         group: group || "",
         level: level || "",
-        type: type || "",
+        type: type || [],
         rank: "intermediate-witch"
       };
 
@@ -125,7 +125,7 @@ exports.run = async (Mythical, message, args) => {
         ID: Target,
         group: group || "",
         level: level || "",
-        type: type || "",
+        type: type || [],
         rank: ""
       };
 
@@ -138,7 +138,7 @@ exports.run = async (Mythical, message, args) => {
         ID: Target,
         group: group || "",
         level: level || "",
-        type: type || "",
+        type: type || [],
         rank: "experienced-witch"
       };
 
@@ -155,7 +155,7 @@ exports.run = async (Mythical, message, args) => {
         ID: Target,
         group: group || "",
         level: level || "",
-        type: type || "",
+        type: type || [],
         rank: ""
       };
 
@@ -168,7 +168,7 @@ exports.run = async (Mythical, message, args) => {
         ID: Target,
         group: group || "",
         level: level || "",
-        type: type || "",
+        type: type || [],
         rank: "psychic-medium"
       };
 
