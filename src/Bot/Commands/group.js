@@ -51,12 +51,12 @@ exports.run = async (Mythical, message, args) => {
 
     let level;
     let rank;
-    let type;
+    let type = [];
 
     if (info) {
       level = info.level;
       rank = info.rank;
-      type = info.type;
+      type = type.push(info.type.map(g=>g))
     }
 
     let data = {
@@ -64,7 +64,7 @@ exports.run = async (Mythical, message, args) => {
       group: "",
       level: level || "",
       rank: rank || "",
-      type: type || ""
+      type: type || []
     };
 
     Mythical.db.set(message.author.id, data);
@@ -110,12 +110,12 @@ exports.run = async (Mythical, message, args) => {
 
     let level;
     let rank;
-    let type;
+    let type = [];
 
     if (info) {
       level = info.level;
       rank = info.rank;
-      type = info.type;
+      type = type.push(info.type.map(g=>g))
     }
 
     let data = {
