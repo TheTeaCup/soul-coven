@@ -1,0 +1,40 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page: "Admin", Redirect: "/admin", pageType: "" }) %>
+
+<link rel="stylesheet" href="//mythicalbots.xyz/css/bots.css">
+<link rel="stylesheet" href="//mythicalbots.xyz/css/form.css">
+
+
+<main>
+      <div class="jumbotron secondary-jumbotron bg-transparent">
+        <div class="container">
+          <h1>Administration Panel</h1>
+            <center><h2 style="font-size:20px;">Manage the site.</h2></center>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+        
+        
+          <div class="col-lg-4">
+            <a class="bg-transparent" href="/admin/forum"
+              ><div class="card action-card preview-card">
+                <div class="card-body"><h2>Forum Settings</h2></div>
+              </div>
+              </a>
+          </div>
+          
+          <div class="col-lg-4">
+            <a class="bg-transparent" href="/admin/restart"
+              ><div class="card action-card preview-card">
+                <div class="card-body"><h2>Restart Site</h2></div>
+              </div>
+              </a>
+          </div>
+      
+            
+          </div>
+       
+          </div>
+        </div>
+      </div>
+    </main>

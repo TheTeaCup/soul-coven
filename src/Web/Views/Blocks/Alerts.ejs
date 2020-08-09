@@ -1,0 +1,32 @@
+<!-- alerts on every page -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
+
+<div aria-live="polite" aria-atomic="true" role="alert" style="position: relative;">
+<div class="toast" style="position: absolute; top: 30px; right: 0; z-index: 1" data-delay="10000">
+<div class="toast-header">
+<img src="<%- Coven.Image %>" style="border-radius:50%;width:64px;height:64px;" class="rounded mr-2" alt="...">
+<strong class="mr-auto">Soul Coven Alerts</strong>
+<small>Web Aug 5 2020 </small>
+<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="toast-body" style="color:black;">
+
+  Hello fellow witchling, we're actively updating our site for you all to use so please be patient <3
+  
+</div>
+<div class="toast-header">
+Soul Coven - Announcement
+</div>
+</div>
+</div>
+
+<script>$(".toast").toast('show')</script>

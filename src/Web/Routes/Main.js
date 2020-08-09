@@ -55,6 +55,10 @@ Router.get("/discord", (req, res) => {
   res.redirect("https://discord.gg/EXQ2hUj");
 });
 
+Router.get("/default", (req, res) => {
+  res.redirect("/images/pent.png");
+});
+
 Router.get("/feedback", async (req, res) => {
   let Page = "Feedback";
   let ErrorMessage = null;
@@ -114,6 +118,16 @@ Router.post("/feedback/post/bug", checkAuth, async (req, res) => {
   } else {
     res.redirect("/feedback?error=not_msg");
   }
+});
+
+Router.get("/terms", async (req, res) => {
+  let Page = "Terms Of Service";
+
+  res.render("terms.ejs", {
+    user: req.isAuthenticated() ? req.user : null,
+    Coven,
+    Page,
+  });
 });
 
 module.exports = Router;

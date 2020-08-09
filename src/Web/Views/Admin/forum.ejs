@@ -1,0 +1,48 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page: "Admin", Redirect: "/admin", pageType: "" }) %>
+
+<link rel="stylesheet" href="//mythicalbots.xyz/css/bots.css">
+<link rel="stylesheet" href="//mythicalbots.xyz/css/form.css">
+
+
+<main>
+      <div class="jumbotron secondary-jumbotron bg-transparent">
+        <div class="container">
+          <h1>Forum Panel</h1>
+            <center><h2 style="font-size:20px;">Manage the Forum.</h2></center>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+        
+        
+          <div class="col-lg-4">
+            <a class="bg-transparent" href="/admin/forum/categories"
+              ><div class="card action-card preview-card">
+                <div class="card-body"><h2>Categories</h2></div>
+              </div>
+              </a>
+          </div>
+          
+          <div class="col-lg-4">
+            <a class="bg-transparent" href="/admin/forum/users?q=all"
+              ><div class="card action-card preview-card">
+                <div class="card-body"><h2>Users</h2></div>
+              </div>
+              </a>
+          </div>
+          
+                    <div class="col-lg-4">
+            <a class="bg-transparent" href="/admin/forum/reports"
+              ><div class="card action-card preview-card">
+                <div class="card-body"><h2>Reported Posts</h2></div>
+              </div>
+              </a>
+          </div>
+      
+            
+          </div>
+       
+          </div>
+        </div>
+      </div>
+    </main>

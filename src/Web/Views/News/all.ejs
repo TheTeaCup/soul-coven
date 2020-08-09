@@ -1,0 +1,70 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page: "News", Redirect: "/news", pageType: "" }) %>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
+<script src="https://use.fontawesome.com/bfddc8ce66.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous" async></script>
+
+
+<main>
+  <div class="jumbotron secondary-jumbotron bg-transparent">
+      <div class="container">
+            <h1>Soul Coven News </h1>
+            <center><h2 style="font-size:20px;"> A place for Soul Coven related new! </h2></center>
+      </div>
+  </div>
+  
+  <% if(e === "nf") { %>
+      <br>
+<div class="container">
+ <center>
+   <div class="row" role="alert">
+     <div class="col-md-12" role="alert">
+       <div class="alert alert-primary alert-warning" role="alert">
+         <button type="button" class="close" data-dismiss="alert">×</button>
+         <h4 class="alert-heading"> <%- m %> </h4>
+         
+      </div>
+    </div>
+  </div>
+ </center>
+</div> 
+<% } %>
+
+<% if(user) { %>
+  <% if(Coven.Staff.includes(user.id)) { %>
+      <center><a class="btn btn-warning" href="/news/create"><i class="fa fa-pen"></i>&nbsp; Create News</a>&nbsp;</center>
+      <br>
+  <% } %>
+<% } %>
+
+<div class="padded-container">
+  <div class="row"> 
+  
+<% for(var i=0; i < all.length; i++) { %>
+  
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <a class="no-color" href="/news/<%= all[i].ID %>">
+        <div class="card preview-card">
+          <div class="card-body">
+            <div class="head">
+              <img class="float-left lazy" src="<%= all[i].image %>" onerror="this.onerror = null;" this.src = "https://cdn.discordapp.com/embed/avatars/0.png?size=256&quot" alt="Avatar" draggable="false">
+              <div class="content">
+                <h3 title=""><%= all[i].name %></h3>
+                <p class="description" style="color:#fff" title=""><%= all[i].type %> <br> From: <%= Coven.users.cache.get(all[i].editor).tag %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    
+<% } %>
+    
+    </div>	
+</div> 
+  
+</main>
+
+<%- include('../Blocks/ToolTip.ejs') %>

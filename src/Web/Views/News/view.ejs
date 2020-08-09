@@ -1,0 +1,51 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/me", pageType: "" }) %>
+
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/bots.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/github-markdown.css"> 
+
+<div class="index-container" style="background: transparent; ">
+	<div class="text-center">
+			<img class="server-avatar" src="<%= Image %>" style="outline-style:red; color: #1b1b1b;" draggable="false" onerror="this.onerror=null;this.src='https://cdn.glitch.com/a555ed97-82ee-4fd0-bf48-544503e0b774%2Fdownload%20(2).jpeg?v=1579188933613';">
+			  <p class="server-name" style="outline-style:black; color: #1b1b1b;" title="news"><%= Page %></p>
+        <div class="tag-list"></div>
+      <br>
+		</div>
+</div>
+
+<% if(user) { %>
+<% 
+
+let allowed = []
+allowed.push(Editor)
+Coven.Staff.map(g => allowed.push(g))
+
+%>
+
+<center>
+  <% if(Coven.Staff.includes(user.id)) { %>
+
+        <a class="btn btn-warning" href="/news/<%- ID %>/edit"><i class="fa fa-pen"></i>&nbsp; Edit</a>&nbsp;
+        
+  <% } %>
+  
+  <% if(allowed.includes(user.id)) { %>
+
+        <a class="btn btn-danger" href="/news/<%- ID %>/remove"><i class="fa fa-trash"></i>&nbsp; Remove</a>&nbsp;
+        
+  <% } %>
+  <br>
+<% } %>
+</center>
+
+<center>
+  <div class="col-lg-9">
+    <div class="card">
+      <div class="card-body preview-card">
+        <div class="le card-text server-desc container markdown-body ">
+          <%- Desc %>
+        </div>
+      </div>
+    </div>
+  </div>
+</center>

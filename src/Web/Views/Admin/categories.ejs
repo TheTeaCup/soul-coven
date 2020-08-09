@@ -1,0 +1,39 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/new/bot" }) %>
+<link rel="stylesheet" href="//mythicalbots.xyz/css/bots.css">
+<link rel="stylesheet" href="//mythicalbots.xyz/css/form.css">
+
+
+<main>
+      <div class="jumbotron secondary-jumbotron bg-transparent">
+        <div class="container">
+          <h1>Forum Categories</h1>
+            <center><h2 style="font-size:20px;">A list of all the categories for the forum..</h2></center>
+        </div>
+      </div>
+ 
+
+<div class="container">
+  <a class="btn btn-outline-secondary no-corners mb-3" href="/admin/forum/categories/add">Add Tag</a>
+<% if(tags.length) { %>
+  <div class="row">
+      <% for(var i=0; i < tags.length; i++) { %>
+        <div class="col-lg-6">
+          <div class="card preview-card">
+            <div class="card-body">
+              <h4 class="mb-0"><%- tags[i] %></h4><a class="mb-0" href="/admin/forum/categories/<%- tags[i] %>/delete">Delete</a>
+            </div>
+          </div>
+        </div>
+     <% } %>
+    </div>
+   <% } else { %>
+  <h3 class="text-center">There doesn't seem to be any categories here.</h3>
+<% } %>
+</div>
+
+<br>
+
+<center>
+<h5 class="sub"> <u><a style="outline: none;" onclick="window.location.assign('/admin/forum')" class="dropbtn"> Back </a></u> </h5>
+</center>
+</main>

@@ -1,0 +1,119 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/me/staff-application", pageType: "" }) %>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/page.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
+<script src="https://use.fontawesome.com/bfddc8ce66.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous" async></script>
+
+
+<main>
+  <div class="jumbotron secondary-jumbotron bg-transparent">
+      <div class="container">
+            <h1>Forum Ppost </h1>
+            <center><h2 style="font-size:20px;">Create a new post on our forum</h2></center>
+      </div>
+  </div>
+<!--  
+<div class="container">
+ <center>
+   <div class="row" role="alert">
+     <div class="col-md-12" role="alert">
+       <div class="alert alert-primary alert-danger" role="alert">
+         <button type="button" class="close" data-dismiss="alert">×</button>
+         <h4 class="alert-heading"> This is still being worked on! </h4>
+         
+      </div>
+    </div>
+  </div>
+ </center>
+</div> 
+  -->
+<!--
+ Ideas:
+- desc
+- image
+- news title
+- news brack
+
+
+
+-->
+  
+  <div class="container">
+   <div id="errormessage"></div>
+   <div class="col-lg-7 card server-form-panel">
+      <article class="card-body">
+         <form action="" method="post" role="form">
+            <input type="hidden" name="id" value="<%= user.id %>">
+
+              <h5>Post Name <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user" style="padding:0"></i></span>
+               </div>
+               <input name="name" id="name" class="form-control xtags" placeholder="What should we name this post?" type="text" value="<%= name %>" required>
+            </div>
+           <p class="help-block">- Ex: Baby Witch Help
+            </p>
+            <br>
+
+            <h5>Post Image <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="far fa-image" style="padding:0"></i></span>
+               </div>
+               <input name="image" id="image" class="form-control xtags" placeholder="https://somecoolimage.com" type="text" value="<%= image %>">
+            </div>
+           <p class="help-block">- This can be left blank but we will assign it a random image <br> - You can also just type <code>/user</code> and we'll make it your icon <br> - Or you can type <code>/default</code> and we'll make it the Soul Coven Image
+            </p>
+            <br>
+            
+        <h5>Post Description <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+             <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-question" style="padding:0"></i></span>
+               </div>
+               <textarea onchange="xcheck()" name="desc" id="desc" height="auto" class="form-control" rows="10" placeholder="What's this about?" maxlength="15000" data-max="15000" data-min="100" required><%= Desc %></textarea>
+            </div>
+            <p class="help-block">- <a href="">Markdown</a> is allowed <br> - Links are allowed but are monitored
+            </p>
+              <br>
+              
+      <h5>What type of Post is this? <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-info" style="padding:0"></i></span>
+               </div>
+                <select class="custom-select" id="type" name="type" required>
+                <% if(type) { %>
+                <option selected><%= type.toLowerCase() %></option>
+                <% } else { %>
+                <option selected>Choose...</option>
+                <% } %>
+            <% let types = Coven.forum.get("forum-types") %>
+            <% for(var i=0; i < types.length; i++) { %>
+                <option><%= types[i].toLowerCase() %></option>
+            <% } %>
+                
+                </select>              
+            </div>
+           <p class="help-block">- Use the selector
+            </p>
+            <br>
+
+            <hr>
+            
+            <div class="form-group">
+               <button type="submit" class="btn btn-red btn-block" id="ssubm" name="ssubm" onclick="return xcheck();">Submit</button>
+            </div>
+         </form>
+      </article>
+   </div>
+</div>
+  
+</main>
+
+<script>
+$('textarea').autoResize();
+</script>
