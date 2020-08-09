@@ -7,6 +7,8 @@ exports.run = async (Mythical, message, args) => {
   let types = roles.filter(function(number) {
     return number.name.endsWith("-witch");
   });
+  
+  try {
 
   let data = [];
   types.map(role => data.push(role.name));
@@ -22,7 +24,13 @@ exports.run = async (Mythical, message, args) => {
     level = info.level;
     group = info.group;
     rank = info.rank;
-    type.push(info.type.map(g=>g));
+    let tyar = info.type;
+    const isArray = tyar instanceof Array;
+    if(isArray) {
+        info.type.map(g => type.push(g));
+    } else {
+        type.push(info.type);
+    }
   }
 
   if (!args[0]) {
@@ -36,7 +44,7 @@ exports.run = async (Mythical, message, args) => {
         "The current witch type(s) you're in",
         `You're in: ${type.join("\n")}`
       );
-    return message.channnel.send(embed);
+    return message.channel.send(embed);
   }
 
   if (args[0].toLowerCase() === "list") {
@@ -50,7 +58,6 @@ exports.run = async (Mythical, message, args) => {
     return;
   }
 
-  try {
     if (data.includes(args[0].toLowerCase())) {
       let arg = args[0];
       let defined = arg.toLowerCase();
