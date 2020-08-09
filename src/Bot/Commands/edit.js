@@ -25,14 +25,13 @@ exports.run = async (Mythical, message, args) => {
   let psy = guild.roles.cache.get("737923377506943016"); // Psychic Medium
   let info = Mythical.db.get(Target);
 
+  let level;
   let group;
-  let rank;
   let type = [];
 
   if (info) {
     level = info.level;
     group = info.group;
-    rank = info.rank;
     let tyar = info.type;
     const isArray = tyar instanceof Array;
     if(isArray) {
