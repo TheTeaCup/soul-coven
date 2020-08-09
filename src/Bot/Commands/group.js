@@ -56,7 +56,13 @@ exports.run = async (Mythical, message, args) => {
     if (info) {
       level = info.level;
       rank = info.rank;
-      type = type.push(info.type.map(g=>g))
+      let tyar = info.type;
+      const isArray = tyar instanceof Array;
+      if(isArray) {
+        info.type.map(g => type.push(g));
+       } else {
+        type.push(info.type);
+      }
     }
 
     let data = {
@@ -115,7 +121,13 @@ exports.run = async (Mythical, message, args) => {
     if (info) {
       level = info.level;
       rank = info.rank;
-      type = type.push(info.type.map(g=>g))
+      let tyar = info.type;
+      const isArray = tyar instanceof Array;
+      if(isArray) {
+        info.type.map(g => type.push(g));
+       } else {
+        type.push(info.type);
+      }
     }
 
     let data = {
