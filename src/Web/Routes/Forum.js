@@ -108,7 +108,7 @@ Router.post("/new", checkAuth, async (req, res) => {
   return res.redirect("/forum/" + key);
 });
 
-Router.get("/:ID", checkAuth, async (req, res) => {
+Router.get("/:ID", async (req, res) => {
   let newsTitle = req.params.ID;
   let all = Coven.forum.get("forums");
   let array = all.filter(function(el) {
