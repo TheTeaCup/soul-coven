@@ -1,6 +1,7 @@
 const Router = require("express").Router();
 const Coven = require(process.cwd() + "/src/Bot/CovenClient.js");
 const Discord = require("discord.js");
+const sitemap = require("sitemap");
 
 Router.get("/", async (req, res) => {
   let Page = "Home";
@@ -85,7 +86,7 @@ Router.post("/feedback/post/suggestion", checkAuth, async (req, res) => {
       .setThumbnail(`https://mythicalbots.xyz/bot/${user.id}/avatar`)
       .setDescription(`${req.body.suggestion}`)
       .setFooter(`Feedback sent by ${user.username}#${user.discriminator}`);
-     channel.send(embed).then(async msg => {
+    channel.send(embed).then(async msg => {
       // reaction
       msg.react("735686606094204958"); //yes
       msg.react("735686638600192141"); // no
@@ -108,7 +109,7 @@ Router.post("/feedback/post/bug", checkAuth, async (req, res) => {
       .setThumbnail(`https://mythicalbots.xyz/bot/${user.id}/avatar`)
       .setDescription(`${req.body.bug}`)
       .setFooter(`Feedback sent by ${user.username}#${user.discriminator}`);
-     channel.send(embed).then(async msg => {
+    channel.send(embed).then(async msg => {
       // reaction
       msg.react("735686606094204958"); //yes
       msg.react("735686638600192141"); // no
@@ -126,8 +127,52 @@ Router.get("/terms", async (req, res) => {
   res.render("terms.ejs", {
     user: req.isAuthenticated() ? req.user : null,
     Coven,
-    Page,
+    Page
   });
+});
+
+Router.get("/sitemap.xml", async (req, res) => {
+  const bots = Coven.forum.get("forums");
+  const news = Coven.news.get("news");
+
+  const sm = sitemap.createSitemap({
+    hostname: "https://soulcoven.me/",
+    cacheTime: 1000 * 60 * 10,
+    urls: [
+      {
+        url: "/",
+        changefreq: "hourly",
+        priority: 0.9
+      },
+      {
+        url: "/news",
+        changefreq: "hourly",
+        priority: 0.9
+      },
+      {
+        url: "/forum",
+        changefreq: "hourly",
+        priority: 0.9
+      },
+      {
+        url: "/terms",
+        changefreq: "weekly",
+        priority: 0.9
+      },
+      ...bots.map(bot => ({
+        url: "/forum/" + bot.ID,
+        changefreq: "daily",
+        priority: 1
+      })),
+      ...news.map(bot => ({
+        url: "/news/" + bot.ID,
+        changefreq: "daily",
+        priority: 1
+      }))
+    ]
+  });
+
+  res.set("Content-Type", "application/xml").send(sm.toString());
 });
 
 module.exports = Router;
