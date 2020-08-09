@@ -1,0 +1,44 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/forum/search", pageType: "" }) %>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
+<script src="https://use.fontawesome.com/bfddc8ce66.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous" async></script>
+
+<%- include('../Blocks/ToolTip.ejs') %>
+
+<main>
+  <div class="jumbotron secondary-jumbotron bg-transparent">
+      <div class="container">
+            <h1>Forum Search </h1>
+            <center><h2 style="font-size:20px;">Searching for, <u><%= searchQ %></u> Found <%- searched.length %> results</h2></center>
+      </div>
+  </div>
+
+<div class="padded-container">
+  <div class="row"> 
+  
+  <% for(var i=0; i < searched.length; i++) { %>
+  
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <a class="no-color" href="/forum/<%= searched[i].ID %>">
+        <div class="card preview-card">
+          <div class="card-body">
+            <div class="head">
+              <img class="float-left lazy" src="<%= searched[i].image %>" alt="Avatar" draggable="false">
+              <div class="content">
+                <h3 title="news"><%- searched[i].name %></h3>
+                <p class="description" style="color:#fff;" title="biography">Written by: <%- Coven.users.cache.get(searched[i].user).tag %> <br> Type: <%= searched[i].type.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))); %> </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    
+  <% } %>
+
+    </div>	
+</div> 
+  
+</main>

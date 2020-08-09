@@ -1,6 +1,7 @@
 const Router = require("express").Router();
 const Coven = require(process.cwd() + "/src/Bot/CovenClient.js");
 const markdownIt = require("markdown-it");
+const JsSearch = require("js-search");
 
 let images = [
   "https://astrology.mythicalbots.xyz/default",
@@ -52,6 +53,28 @@ Router.get("/", async (req, res) => {
       message: e
     });
   }
+});
+
+Router.get("/search", checkAuth, async (req, res) => {
+  let Page = "Forum Search";
+  let all = Coven.forum.get("forums");
+  let searchQ = req.query.q;
+
+  var search = new JsSearch.Search("id");
+  search.addIndex("ID");
+  search.addIndex("name");
+  search.addIndex("type");
+
+  search.addDocuments(all);
+  let searched = search.search(req.query.q);
+
+  res.render("Forum/search.ejs", {
+    Coven,
+    user: req.isAuthenticated() ? req.user : null,
+    Page,
+    searched,
+    searchQ
+  });
 });
 
 Router.get("/new", checkAuth, async (req, res) => {
