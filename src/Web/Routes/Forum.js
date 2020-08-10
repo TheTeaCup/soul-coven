@@ -23,7 +23,8 @@ let forumTemplate = {
   comments: [],
   upvotes: "number", // use these two to get more information
   downvotes: "number",
-  views: "number"
+  views: "number",
+  hidden: "true/false"
 };
 
 Router.get("/", async (req, res) => {
@@ -123,7 +124,8 @@ Router.post("/new", checkAuth, async (req, res) => {
     comments: [],
     upvotes: "0",
     downvotes: "0",
-    views: "1"
+    views: "1",
+    hidden: false
   };
 
   Coven.forum.push("forums", Data);
@@ -239,6 +241,10 @@ Router.post("/:ID/edit", checkAuth, async (req, res) => {
     Coven.forum.set("forums", filtered);
 
     let image;
+    let status = false;
+    if(info.hidden) {
+        status = info.hidden
+    }
 
     if (data.image) {
       if (data.image === "/user") {
@@ -262,7 +268,8 @@ Router.post("/:ID/edit", checkAuth, async (req, res) => {
       comments: info.comments,
       upvotes: info.upvotes,
       downvotes: info.downvotes,
-      views: info.views
+      views: info.views,
+      hidden: status
     };
 
     await Coven.forum.push("forums", Data);
