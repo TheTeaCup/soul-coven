@@ -242,8 +242,8 @@ Router.post("/:ID/edit", checkAuth, async (req, res) => {
 
     let image;
     let status = false;
-    if(info.hidden) {
-        status = info.hidden
+    if (info.hidden) {
+      status = info.hidden;
     }
 
     if (data.image) {
@@ -319,6 +319,101 @@ Router.get("/:ID/remove", checkAuth, async (req, res) => {
   res.redirect("/forum?s=deleted&n=" + newsTitle);
 });
 
+let commentTemplate = {
+  title: "",
+  userID: "",
+  userTag: "",
+  desc: "",
+  ID: ""
+};
+
+Router.get("/:ID/comment", checkAuth, async (req, res) => {
+  let newsTitle = req.params.ID;
+  let all = Coven.forum.get("forums");
+  let array = all.filter(function(el) {
+    return el.ID === `${newsTitle}`;
+  });
+  let info = array[0];
+
+  if (!info) return res.redirect("/forum?e=nf&name=" + newsTitle);
+
+  let Page = info.name;
+  let Image = info.image;
+  let Desc = info.desc;
+  let Editor = info.user;
+
+  res.render("Forum/comment.ejs", {
+    user: req.isAuthenticated() ? req.user : null,
+    Coven,
+    Page,
+    path: req.path,
+    Editor,
+    ID: newsTitle,
+    info,
+    title: "",
+    desc: ""
+  });
+});
+
+Router.post("/:ID/comment", checkAuth, async (req, res) => {
+  let newsTitle = req.params.ID;
+  let all = Coven.forum.get("forums");
+  let array = all.filter(function(el) {
+    return el.ID === `${newsTitle}`;
+  });
+  let data = req.body;
+
+  let info = array[0];
+
+  if (!info) return res.redirect("/forum?e=nf&name=" + newsTitle);
+  let comments = info.comments;
+
+  let key = Math.random()
+    .toString(36)
+    .substring(7);
+
+  var filtered = all.filter(function(el) {
+    return el.ID != `${newsTitle}`;
+  }); // remove
+
+  Coven.forum.set("forums", filtered);
+
+  let comment = {
+    title: data.name,
+    userID: req.user.id,
+    userTag: req.user.username + "#" + req.user.discriminator,
+    desc: data.desc,
+    ID: key
+  };
+
+  let status = false;
+  if (info.hidden) {
+    status = info.hidden;
+  }
+
+  comments.push(comment);
+
+  let Data = {
+    ID: info.ID,
+    name: info.name,
+    type: info.type,
+    user: info.user,
+    desc: info.desc,
+    image: info.image,
+    published: info.published,
+    lastEdit: Date.now(),
+    comments: comments,
+    upvotes: info.upvotes,
+    downvotes: info.downvotes,
+    views: info.views,
+    hidden: status
+  };
+
+  await Coven.forum.push("forums", Data);
+  
+  res.redirect("/forum/" + newsTitle);
+});
+
 module.exports = Router;
 
 /*
@@ -333,3 +428,4 @@ function checkAuth(req, res, next) {
     res.redirect("/login?redirect=/me");
   }
 }
+
