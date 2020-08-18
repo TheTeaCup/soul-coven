@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports = async (client, oldMember, newMember) => {
+if (member.guild.id === settings.guild-id) {
   if (oldMember.nickname !== newMember.nickname) {
     const embed = new Discord.MessageEmbed()
       .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL())
@@ -23,4 +24,5 @@ module.exports = async (client, oldMember, newMember) => {
 
     oldMember.guild.channels.cache.get("735503490830434354").send(embed);
   }
+}
 };

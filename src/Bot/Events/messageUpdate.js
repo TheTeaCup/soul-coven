@@ -9,6 +9,8 @@ module.exports = async (client, oldMessage, newMessage) => {
   ) {
     return;
   }
+  
+if (newMessage.guild.id === settings.guild-id) {
 
   // Description value length limit for embeds is 1024
   const oldDemark = oldMessage.content.replace(/(\*|~|_|`)/g, "\\$1");
@@ -32,4 +34,5 @@ module.exports = async (client, oldMessage, newMessage) => {
     );
 
   newMessage.guild.channels.cache.get("735503490830434354").send(embed);
+}
 };

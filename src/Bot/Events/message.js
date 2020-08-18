@@ -10,9 +10,11 @@ module.exports = (Mythical, message) => {
     \`list available pronouns   \` -- Get a list of available pronoun sets
     \`my pronouns are IDENTIFIER\` -- Set your pronouns to IDENTIFIER`); */
   } else {
+    if (message.guild.id === settings.guild-id) {
     pronounify.listPronouns(message);
     pronounify.addPronouns(message);
     pronounify.setPronouns(message);
+    }
   }
     
   if (
@@ -51,6 +53,7 @@ module.exports = (Mythical, message) => {
     return; //Not a command
   }
   
+if (message.guild.id === settings.guild-id) {
   let channels = Mythical.AllowedChannels.get("channels");
   if(!Mythical.Staff.includes(message.author.id)) {
       if(!channels.includes(message.channel.id)) {
@@ -58,7 +61,8 @@ module.exports = (Mythical, message) => {
           return message.channel.send(`${message.author} Sorry but you're not allowed to do bot commands in this channel.`)
           .then(msg => msg.delete({ timeout: 5000 }));
       }
-  } 
+  }
+} 
 
   MythicalCommand.run(Mythical, message, args);
 };

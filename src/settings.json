@@ -34,6 +34,9 @@
   "embedColor": "#2C2F33",
   "PORT": "WEBSITEPORT",
   "secret": "discord-bot-secret",
-  "mongo": "mongo-db"
+  "mongo": "mongo-db",
+  "mod-log": "channel-id",
+  "guild": "guild-id",
+  "server-log": "log-for-server-joins/leaves"
  
 }

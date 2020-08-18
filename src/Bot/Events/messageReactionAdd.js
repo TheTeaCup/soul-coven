@@ -8,6 +8,8 @@ module.exports = async (bot, reaction, user) => {
   let message = reaction.message;
   if (!message) return;
   if (user.bot) return;
+  
+if (message.guild.id === settings.guild-id) {
 
   let already = new Discord.MessageEmbed()
     .setColor(bot.Color)
@@ -117,4 +119,5 @@ module.exports = async (bot, reaction, user) => {
       }, 5000);
     }
   }
+}
 };

@@ -19,7 +19,7 @@ module.exports = async Mythical => {
     })
     .catch(console.error);
 
-  let guild = Mythical.guilds.cache.get("734953770961600593");
+  let guild = Mythical.guilds.cache.get(settings.guild-id);
 
   // Save the current collection of guild invites.
   guild.fetchInvites().then(guildInvites => {

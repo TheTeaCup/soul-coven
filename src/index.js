@@ -12,6 +12,7 @@ Coven.on("message", async message => {
   if (message.channel.type != "text") return;
   
   if(message.channel.id === "737183757592821800")return; //nsfw channel
+  if(message.guild.id === "740394516640563244")return; //not needed
   
   const SwearWords = [
     "nigger",
@@ -60,6 +61,7 @@ Coven.on("message", async message => {
 
       )
     ) {
+        if(message.channel.id === "744001687307550721")return; // ad channel
       message.delete().catch(O_o => {});
       
         let warns = Quick.get(`userWarnings_${message.author.id}`);

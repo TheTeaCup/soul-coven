@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 
 module.exports = async (Mythical, member) => {
 
-  if (member.guild.id === "734953770961600593") {
+  if (member.guild.id === settings.guild-id) {
     // Check if it's soul coven.
     
     let data = {
