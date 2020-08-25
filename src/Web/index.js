@@ -14,20 +14,18 @@ var minifyHTML = require("express-minify-html");
 const JsSearch = require("js-search");
 const bodyParser = require("body-parser");
 const path = require("path");
-const flash = require('req-flash');
+const flash = require("req-flash");
 
 console.log("Soul Coven (Web) Site is starting...");
 
 const Coven = require("../Bot/CovenClient.js");
-
 
 const MainRoute = require("./Routes/Main.js");
 const MeRoute = require("./Routes/Me.js");
 const APIRoute = require("./Routes/API.js");
 const NewsRoute = require("./Routes/News.js");
 const ForumRoute = require("./Routes/Forum.js");
-
-
+const LBRoute = require("./Routes/Leaderboard.js");
 
 /*
 const MeRoute = require("./Web/Routes/MeRoute.js");
@@ -75,8 +73,7 @@ passport.use(
 app.use(
   session({
     store: new MongoStore({
-      url:
-        settings.mongo
+      url: settings.mongo
     }),
     secret: "FROPT",
     resave: false,
@@ -109,23 +106,23 @@ app.use(
 );
 
 app.use((req, res, next) => {
-      res.set("Access-Control-Allow-Origin", "*");
-      res.set("Access-Control-Allow-Methods", "GET, POST");
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "GET, POST");
 
-      console.log(
-        (req.headers["cf-connecting-ip"] ||
-          req.headers["x-forwarded-for"] ||
-          req.ip) +
-          " [" +
-          req.method +
-          "] " +
-          req.url
-      );
-      
-    //  console.log(path.join(__dirname))
+  console.log(
+    (req.headers["cf-connecting-ip"] ||
+      req.headers["x-forwarded-for"] ||
+      req.ip) +
+      " [" +
+      req.method +
+      "] " +
+      req.url
+  );
 
-      next();
-    });
+  //  console.log(path.join(__dirname))
+
+  next();
+});
 
 /**
  * Routes
@@ -134,8 +131,7 @@ app.use("/", MainRoute);
 app.use("/me", MeRoute);
 app.use("/forum", ForumRoute);
 app.use("/news", NewsRoute);
-
-
+app.use("/leaderboard", LBRoute);
 
 /*
 app.use("/user", UserRoute);
@@ -143,7 +139,6 @@ app.use("/signs", SignsRoute);
 app.use("/admin", AdminRoute);
 app.use("/news", NewsRoute);
 app.use("/gallery", GalleryRoute); */
-
 
 app.get("/robots.txt", (req, res) => {
   res.type("text/plain");
@@ -160,20 +155,13 @@ app.set("views", path.join(__dirname, "/Views/"));
 app.use("/images", express.static(process.cwd() + "/src/Web/Images/"));
 app.use("/css", express.static(process.cwd() + "/src/Web/Public/css/"));
 
-    app.use(
-      "/css/",
-      express.static(process.cwd() + "/src/Public/css/")
-    );
-    app.use(
-      "/js/",
-      express.static(process.cwd() + "/src/Public/js/")
-    );
+app.use("/css/", express.static(process.cwd() + "/src/Public/css/"));
+app.use("/js/", express.static(process.cwd() + "/src/Public/js/"));
 
 /*app.get('/css/:ID', function(req, res) {
   res.sendFile(process.cwd() + "/src/Web/Public/css/" + req.params.ID);
 });
 */
-
 
 /* Get page status codes */
 app.use(function(err, req, res, next) {
@@ -192,8 +180,8 @@ app.use(function(err, req, res, next) {
     res.status(422).render("error.ejs", {
       user: req.isAuthenticated() ? req.user : null,
       Website: "/login",
-      message:"Validatoin Error",
-    Coven
+      message: "Validatoin Error",
+      Coven
     });
     return;
   }
