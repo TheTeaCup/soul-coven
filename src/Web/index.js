@@ -105,6 +105,26 @@ app.use(
   })
 );
 
+app.get("/user/:ID/avatar", async (req, res) => {
+  let ID = req.params.ID;
+  if (!ID) return res.send({ error: "Please give a bot ID" });
+
+  if (isNaN(ID)) {
+    return res.send({ error: "'id' must be a snowflake" });
+  }
+
+  Mythical.users
+    .fetch(ID)
+    .then(async Bot => {
+      res.redirect(
+        `https://cdn.discordapp.com/avatars/${Bot.id}/${Bot.avatar}`
+      );
+
+      return;
+    })
+    .catch(console.error);
+});
+
 app.use((req, res, next) => {
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Methods", "GET, POST");

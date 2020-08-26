@@ -23,3 +23,29 @@
   </div>
  </center>
 </div>
+
+<div class="padded-container">
+  <div class="row"> 
+  
+  <% for(var i=0; i < d.length; i++) { %>
+  
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <a class="no-color" href="/user/<%= d[i].id %>">
+        <div class="card preview-card">
+          <div class="card-body">
+            <div class="head">
+              <img class="float-left lazy" src="/user/<%= d[i].id %>/avatar" alt="Avatar" draggable="false">
+              <div class="content">
+                <h3 title="news"> <%= d[i].name || "user#0000" %> </h3>
+                <p class="description" style="color:#fff;" title="biography"> Level: <%= d[i].level %> <br> Points: <%= d[i].levelpoints %> </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    
+  <% } %>
+
+    </div>	
+</div> 
