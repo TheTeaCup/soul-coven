@@ -15,7 +15,10 @@ let forumTemplate = {
   ID: "example-thing",
   name: "i am example",
   type: "information", // can be more than just info
-  user: "user-id",
+  user: {
+    name: "user#0000",
+    id: "user-id"
+  },
   desc: "what is it?",
   image: "n.a",
   published: Date.now(),
@@ -24,7 +27,8 @@ let forumTemplate = {
   upvotes: "number", // use these two to get more information
   downvotes: "number",
   views: "number",
-  hidden: "true/false"
+  hidden: "true/false",
+  commentsEn: "true/false"
 };
 
 Router.get("/", async (req, res) => {
@@ -78,6 +82,24 @@ Router.get("/search", checkAuth, async (req, res) => {
   });
 });
 
+Router.get("/search/tags", checkAuth, async (req, res) => {
+  let Page = "Forum Search";
+  let all = Coven.forum.get("forums");
+  let searchQ = req.query.q;
+
+  let searched = all.filter(function(el) {
+    return el.type === `${searchQ}`;
+  });
+
+  res.render("Forum/search.ejs", {
+    Coven,
+    user: req.isAuthenticated() ? req.user : null,
+    Page,
+    searched,
+    searchQ
+  });
+});
+
 Router.get("/new", checkAuth, async (req, res) => {
   let Page = "New Forum Post";
 
@@ -112,25 +134,33 @@ Router.post("/new", checkAuth, async (req, res) => {
     .toString(36)
     .substring(7);
 
-  let Data = {
-    ID: key,
-    name: data.name,
-    type: data.type,
-    user: user.id,
-    desc: data.desc,
-    image: image,
-    published: Date.now(),
-    lastEdit: Date.now(),
-    comments: [],
-    upvotes: "0",
-    downvotes: "0",
-    views: "1",
-    hidden: false
-  };
+  Coven.users.fetch(user.id).then(use => {
+    let inf = {
+      name: use.tag,
+      id: use.id
+    };
 
-  Coven.forum.push("forums", Data);
+    let Data = {
+      ID: key,
+      name: data.name,
+      type: data.type,
+      user: inf,
+      desc: data.desc,
+      image: image,
+      published: Date.now(),
+      lastEdit: Date.now(),
+      comments: [],
+      upvotes: "0",
+      downvotes: "0",
+      views: "1",
+      hidden: false,
+      commentsEn: true
+    };
 
-  return res.redirect("/forum/" + key);
+    Coven.forum.push("forums", Data);
+
+    return res.redirect("/forum/" + key);
+  });
 });
 
 Router.get("/:ID", async (req, res) => {
@@ -234,11 +264,11 @@ Router.post("/:ID/edit", checkAuth, async (req, res) => {
         user: req.isAuthenticated() ? req.user : null
       });
 
-    var filtered = all.filter(function(el) {
+    /*    var filtered = all.filter(function(el) {
       return el.ID != `${newsTitle}`;
     }); // remove
 
-    Coven.forum.set("forums", filtered);
+    Coven.forum.set("forums", filtered); */
 
     let image;
     let status = false;
@@ -248,7 +278,7 @@ Router.post("/:ID/edit", checkAuth, async (req, res) => {
 
     if (data.image) {
       if (data.image === "/user") {
-        image = "https://mythicalbots.xyz/bot/" + info.user + "/avatar";
+        image = "https://mythicalbots.xyz/bot/" + info.user.id + "/avatar";
       } else {
         image = data.image;
       }
@@ -256,25 +286,36 @@ Router.post("/:ID/edit", checkAuth, async (req, res) => {
       image = images[Math.floor(Math.random() * images.length)];
     }
 
-    let Data = {
-      ID: info.ID,
-      name: data.name,
-      type: data.type,
-      user: info.user,
-      desc: data.desc,
-      image: image,
-      published: info.published,
-      lastEdit: Date.now(),
-      comments: info.comments,
-      upvotes: info.upvotes,
-      downvotes: info.downvotes,
-      views: info.views,
-      hidden: status
-    };
+    Coven.users.fetch(info.user.id).then(async use => {
+      let inf = {
+        name: use.tag,
+        id: use.id
+      };
 
-    await Coven.forum.push("forums", Data);
+      let Data = {
+        ID: info.ID,
+        name: data.name,
+        type: data.type,
+        user: inf,
+        desc: data.desc,
+        image: image,
+        published: info.published,
+        lastEdit: Date.now(),
+        comments: info.comments,
+        upvotes: info.upvotes,
+        downvotes: info.downvotes,
+        views: info.views,
+        hidden: status,
+        commentsEn: info.commentsEn
+      };
 
-    return res.redirect("/forum/" + newsTitle);
+      var foundIndex = all.findIndex(x => x.ID == info.ID);
+      all[foundIndex] = Data;
+
+      await Coven.forum.set("forums", all);
+
+      return res.redirect("/forum/" + newsTitle);
+    });
   } catch (e) {
     return res.status(500).render("error.ejs", {
       title: "401",
@@ -341,6 +382,8 @@ Router.get("/:ID/comment", checkAuth, async (req, res) => {
   let Image = info.image;
   let Desc = info.desc;
   let Editor = info.user;
+  
+  if(info.commentsEn === false) return res.redirect("/forum/" + info.ID + "?e=comments_disabled")
 
   res.render("Forum/comment.ejs", {
     user: req.isAuthenticated() ? req.user : null,
@@ -372,11 +415,11 @@ Router.post("/:ID/comment", checkAuth, async (req, res) => {
     .toString(36)
     .substring(7);
 
-  var filtered = all.filter(function(el) {
+  /*  var filtered = all.filter(function(el) {
     return el.ID != `${newsTitle}`;
   }); // remove
 
-  Coven.forum.set("forums", filtered);
+  Coven.forum.set("forums", filtered); */
 
   let comment = {
     title: data.name,
@@ -406,12 +449,72 @@ Router.post("/:ID/comment", checkAuth, async (req, res) => {
     upvotes: info.upvotes,
     downvotes: info.downvotes,
     views: info.views,
-    hidden: status
+    hidden: status,
+    commentsEn: info.commentsEn
   };
 
-  await Coven.forum.push("forums", Data);
-  
+  var foundIndex = all.findIndex(x => x.ID == info.ID);
+  all[foundIndex] = Data;
+
+  await Coven.forum.set("forums", all);
+
   res.redirect("/forum/" + newsTitle);
+});
+
+Router.get("/:ID/settings/comments", checkAuth, async (req, res) => {
+  let newsTitle = req.params.ID;
+  let all = Coven.forum.get("forums");
+  let array = all.filter(function(el) {
+    return el.ID === `${newsTitle}`;
+  });
+  let data = req.body;
+
+  let info = array[0];
+
+  if (!info) return res.redirect("/forum?e=nf&name=" + newsTitle);
+  let comments = info.comments;
+
+  let key = Math.random()
+    .toString(36)
+    .substring(7);
+
+  /*  var filtered = all.filter(function(el) {
+    return el.ID != `${newsTitle}`;
+  }); // remove
+
+  Coven.forum.set("forums", filtered); */
+
+  let now = "";
+  if (info.commentsEn === true) {
+    now = false;
+  }
+  if (info.commentsEn === false) {
+    now = true;
+  }
+
+  let Data = {
+    ID: info.ID,
+    name: info.name,
+    type: info.type,
+    user: info.user,
+    desc: info.desc,
+    image: info.image,
+    published: info.published,
+    lastEdit: Date.now(),
+    comments: info.comments,
+    upvotes: info.upvotes,
+    downvotes: info.downvotes,
+    views: info.views,
+    hidden: info.hidden,
+    commentsEn: now
+  };
+
+  var foundIndex = all.findIndex(x => x.ID == info.ID);
+  all[foundIndex] = Data;
+
+  await Coven.forum.set("forums", all);
+
+  res.redirect("/forum/" + newsTitle + "?s=comment_settings_" + now);
 });
 
 module.exports = Router;
@@ -428,4 +531,3 @@ function checkAuth(req, res, next) {
     res.redirect("/login?redirect=/me");
   }
 }
-

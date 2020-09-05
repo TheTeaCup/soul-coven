@@ -1,6 +1,11 @@
 const Discord = require("discord.js");
 
 exports.run = async (Mythical, message, args) => {
+  if (message.guild.id !== settings.guild)
+    return message.channel.send(
+      "Sorry this command is only allowed in `The Witches Of The Soul` Discord server"
+    );
+
   if (!Mythical.Staff.includes(message.author.id)) {
     return message.channel.send(
       "Sorry but this command is lock to the `Staff Team`!"
@@ -23,6 +28,7 @@ exports.run = async (Mythical, message, args) => {
   let int = guild.roles.cache.get("735183730867437641"); // Intermediate Witch
   let ex = guild.roles.cache.get("735265030014107718"); // Experienced Witch
   let psy = guild.roles.cache.get("737923377506943016"); // Psychic Medium
+  let h = guild.roles.cache.get("751626683924086874"); // Helper
   let info = Mythical.db.get(Target);
 
   let level;
@@ -34,10 +40,10 @@ exports.run = async (Mythical, message, args) => {
     group = info.group;
     let tyar = info.type;
     const isArray = tyar instanceof Array;
-    if(isArray) {
-        info.type.map(g => type.push(g));
+    if (isArray) {
+      info.type.map(g => type.push(g));
     } else {
-        type.push(info.type);
+      type.push(info.type);
     }
   }
 
@@ -58,7 +64,14 @@ exports.run = async (Mythical, message, args) => {
         "Wanna change their rank to `Experienced Witch`?",
         "Well do: `c!Edit @user/ID 3`"
       )
-      .addField("Wann change their rank to `Psychic Medium`","Well do: `c!Edit @user/ID 4`")
+      .addField(
+        "Wann change their rank to `Psychic Medium`",
+        "Well do: `c!Edit @user/ID 4`"
+      )
+      .addField(
+        "Wanna change their rank to `Helper`?",
+        "Well do: `c!Edit @user/ID 5`"
+      );
     return message.channel.send(embed);
   }
 
@@ -151,9 +164,9 @@ exports.run = async (Mythical, message, args) => {
       Mythical.db.set(Target, data);
     }
   }
-  
+
   if (args[1].toLowerCase() === "4") {
-    if (member.roles.cache.has(ex.id)) {
+    if (member.roles.cache.has(psy.id)) {
       member.roles.remove(psy, "admin requested");
       message.channel.send(`Removed: <@${Target}> as a \`Psychic Medium\``);
 
@@ -181,7 +194,36 @@ exports.run = async (Mythical, message, args) => {
       Mythical.db.set(Target, data);
     }
   }
-  
+
+  if (args[1].toLowerCase() === "5") {
+    if (member.roles.cache.has(h.id)) {
+      member.roles.remove(h, "admin requested");
+      message.channel.send(`Removed: <@${Target}> as a \`Helper\``);
+
+      let data = {
+        ID: Target,
+        group: group || "",
+        level: level || "",
+        type: type || [],
+        rank: ""
+      };
+
+      Mythical.db.set(Target, data);
+    } else {
+      member.roles.add(h, "admin requested");
+      message.channel.send(`Added: <@${Target}> as a \`Helper\``);
+
+      let data = {
+        ID: Target,
+        group: group || "",
+        level: level || "",
+        type: type || [],
+        rank: "helper"
+      };
+
+      Mythical.db.set(Target, data);
+    }
+  }
 };
 
 exports.help = {
