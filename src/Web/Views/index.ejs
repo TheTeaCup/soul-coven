@@ -1,89 +1,11 @@
-<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/me", pageType: "" }) %>
-<link rel="stylesheet" href="https://mythicalbots.xyz/css/bots.css">
-<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
-<link rel="stylesheet" href="https://mythicalbots.xyz/css/github-markdown.css"> 
+<%- include('./Blocks/Header.ejs', { Coven, user, Page, Redirect: "/me", pageType: "" }) %>
+
+<center><h1>Hello! Welcome to Soul Covens Offical Website!</h1><br>
+<h5 class="sub">Soul Coven is a online coven for all witchligns to join and learn about Witchcraft and even Astrology! <br> We are still working on your website but if you want to join our discord just <u><a onclick="window.open('/discord','_blank')">click here.</a></u><% if(user){ %><br>Welcome, you are signed in. <% } else { %><br>For more information please <a onclick="window.location.assign('/login?redirect=/me')">Login</a> <% } %></h5>
+</center>
+
 <br>
-<style>
-h1{
-  font-size:25px;
-  color: #1b1b1b;
-}
-  .card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #1b1b1b;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem; }
-  .card > hr {
-    margin-right: 0;
-    margin-left: 0; }
-  .card > .list-group:first-child .list-group-item:first-child {
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem; }
-  .card > .list-group:last-child .list-group-item:last-child {
-    border-bottom-right-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem; }
-
-.card-body {
-  flex: 1 1 auto;
-  padding: 1.25rem; }
-  
-  .card {
-  color: #fff; }
-  
- .col-md-12 {
-    flex: 0 0 100%;
-    max-width: 100%; }
-  
-  .item {
-    position:relative;
-    padding-top:20px;
-    display:inline-block;
-}
-  
-.jj{
-color:#1b1b1b;
-}
- .dropbtnn {
-  background-color: #fff;
-  color: #1b1b1b;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-</style>
 
 <center>
-<img class="img-fluid d-block rounded-circle mx-auto" src="https://mythicalbots.xyz/bot/<%= user.id %>/avatar" data-toggle="tooltip" data-placement="top" title="<%= user.username %>">
-<h1> Welcome to your dashboard, <%=user.username%>. </h1>
-              
-</center>
-<hr>
-<br><br>
 
-<% if(Error === "join_server") { %>
-
-       <br>
-<div class="container">
- <center>
-   <div class="row" role="alert">
-     <div class="col-md-12" role="alert">
-       <div class="alert alert-primary alert-danger" role="alert">
-         <button type="button" class="close" data-dismiss="alert">×</button>
-         <h4 class="alert-heading">Oops, there is a problem..</h4>
-         <p class="mb-0">You need to join our server to submit a application. <br>  <a id="invite" onClick="window.open('/discord', '_about')"  class="btn btn-sm btn-outline-danger">Click Here</a></p>
-      </div>
-    </div>
-  </div>
- </center>
-</div>
-
-<% } %>
-
-<center><a class="btn btn-success" href="/me/staff-application"><i class="fa fa-pen"></i>&nbsp; Staff Application</a>&nbsp;</center>
+<h5 class="sub"> If you're from our discord are are looking for the staff application please <u><a onclick="window.location.assign('/login?redirect=/me/staff-application')">Click Here</a></u> and you will be redirected to login then to the application. </h5>

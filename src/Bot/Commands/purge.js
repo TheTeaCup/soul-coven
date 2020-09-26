@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 
 // eslint-disable-next-line no-unused-vars
 module.exports.run = async (client, message, args) => {
+
   const deniedEmbed = new Discord.MessageEmbed()
     .setTitle("Sould Coven")
     .setColor(client.Color)

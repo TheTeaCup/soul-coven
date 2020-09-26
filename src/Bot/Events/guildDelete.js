@@ -6,7 +6,7 @@ module.exports = async (Mythical, guild) => {
   Mythical.roleReaction.delete(`${guild.id}`);
 
 
-  const logsServerLeave2 = Mythical.channels.cache.get(server-log);
+  const logsServerLeave2 = Mythical.channels.cache.get(settings.server);
   console.log(
     `The bot has been left ${guild.name}, Owned by ${guild.owner.user.tag}`
   );

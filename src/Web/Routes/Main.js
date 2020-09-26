@@ -39,7 +39,7 @@ Router.get("/login", (req, res) => {
   if (!redirect) redirect = "/me";
   //console.log(redirect)
   res.redirect(
-    "https://discord.com/api/oauth2/authorize?client_id=735313029016846487&redirect_uri=https%3A%2F%2Fsoulcoven.me%2Fapi%2Fcallback&response_type=code&scope=identify&prompt=none&state=" +
+    "https://discord.com/api/oauth2/authorize?client_id=735313029016846487&redirect_uri=https%3A%2F%2Fsoulcoven.me%2Fapi%2Fcallback&response_type=code&scope=guilds%20identify&prompt=none&state=" +
       redirect
   );
 });
@@ -132,8 +132,10 @@ Router.get("/terms", async (req, res) => {
 });
 
 Router.get("/sitemap.xml", async (req, res) => {
-  const bots = Coven.forum.get("forums");
+  const forum = Coven.forum.get("forums");
   const news = Coven.news.get("news");
+  
+  try {
 
   const sm = sitemap.createSitemap({
     hostname: "https://soulcoven.me/",
@@ -159,13 +161,13 @@ Router.get("/sitemap.xml", async (req, res) => {
         changefreq: "weekly",
         priority: 0.9
       },
-      ...bots.map(bot => ({
-        url: "/forum/" + bot.ID,
+      ...forum.map(page => ({
+        url: "/forum/" + page.ID,
         changefreq: "daily",
         priority: 1
       })),
-      ...news.map(bot => ({
-        url: "/news/" + bot.ID,
+      ...news.map(page => ({
+        url: "/news/" + page.ID,
         changefreq: "daily",
         priority: 1
       }))
@@ -173,6 +175,17 @@ Router.get("/sitemap.xml", async (req, res) => {
   });
 
   res.set("Content-Type", "application/xml").send(sm.toString());
+  
+  } catch(e) {
+    return res.status(500).render("error.ejs", {
+      title: "401",
+      code: 401,
+      message: e,
+      Coven,
+      user: req.isAuthenticated() ? req.user : null
+    });
+  }
+  
 });
 
 module.exports = Router;

@@ -10,7 +10,7 @@ module.exports = async (client, oldMessage, newMessage) => {
     return;
   }
   
-if (newMessage.guild.id === settings.guild-id) {
+if (newMessage.guild.id === settings.guild) {
 
   // Description value length limit for embeds is 1024
   const oldDemark = oldMessage.content.replace(/(\*|~|_|`)/g, "\\$1");

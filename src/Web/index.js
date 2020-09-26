@@ -26,6 +26,8 @@ const APIRoute = require("./Routes/API.js");
 const NewsRoute = require("./Routes/News.js");
 const ForumRoute = require("./Routes/Forum.js");
 const LBRoute = require("./Routes/Leaderboard.js");
+const AdminRoute = require("./Routes/Admin.js");
+
 
 /*
 const MeRoute = require("./Web/Routes/MeRoute.js");
@@ -60,7 +62,7 @@ passport.use(
       clientID: "735313029016846487",
       clientSecret: settings.secret,
       callbackURL: "https://soulcoven.me/api/callback",
-      scope: ["identify"]
+      scope: ["identify", "guilds"]
     },
     (accessToken, refreshToken, profile, done) => {
       process.nextTick(() => {
@@ -113,7 +115,7 @@ app.get("/user/:ID/avatar", async (req, res) => {
     return res.send({ error: "'id' must be a snowflake" });
   }
 
-  Mythical.users
+  Coven.users
     .fetch(ID)
     .then(async Bot => {
       res.redirect(
@@ -152,6 +154,8 @@ app.use("/me", MeRoute);
 app.use("/forum", ForumRoute);
 app.use("/news", NewsRoute);
 app.use("/leaderboard", LBRoute);
+app.use("/admin", AdminRoute);
+
 
 /*
 app.use("/user", UserRoute);

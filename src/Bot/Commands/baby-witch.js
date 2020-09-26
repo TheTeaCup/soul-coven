@@ -4,6 +4,7 @@ exports.run = async (Mythical, message, args) => {
   let info = Mythical.db.get(message.author.id);
 
   let guild = Mythical.guilds.cache.get("734953770961600593");
+  if(message.guild.id !== settings.guild)return message.channel.send("Sorry this command is only allowed in `The Witches Of The Soul` Discord server")
   let member = guild.members.cache.get(message.author.id);
   let role = guild.roles.cache.get("736245013670920292"); //baby-witch
   

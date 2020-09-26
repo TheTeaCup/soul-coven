@@ -86,6 +86,14 @@ Router.get("/search/tags", checkAuth, async (req, res) => {
   let Page = "Forum Search";
   let all = Coven.forum.get("forums");
   let searchQ = req.query.q;
+  
+  if(searchQ.toLowerCase() === "witch-types") {
+      searchQ = "witch types"
+  }
+  
+  if(searchQ.toLowerCase() === "social-media") {
+      searchQ = "social media"
+  }
 
   let searched = all.filter(function(el) {
     return el.type === `${searchQ}`;

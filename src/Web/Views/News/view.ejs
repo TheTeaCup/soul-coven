@@ -23,15 +23,17 @@ Coven.Staff.map(g => allowed.push(g))
 %>
 
 <center>
-   <% if(allowed.includes(user.id)) { %>
+  <% if(Coven.Staff.includes(user.id)) { %>
 
-        <a class="btn btn-warning" href="/forum/<%- ID %>/edit"><i class="fa fa-pen"></i>&nbsp; Edit</a>&nbsp;
-        <a class="btn btn-danger" href="/forum/<%- ID %>/remove"><i class="fa fa-trash"></i>&nbsp; Remove</a>&nbsp;
+        <a class="btn btn-warning" href="/news/<%- ID %>/edit"><i class="fa fa-pen"></i>&nbsp; Edit</a>&nbsp;
         
   <% } %>
   
-    <a class="btn btn-danger" href="/forum/<%- ID %>/report"><i class="fa fa-flag"></i>&nbsp; Report</a>&nbsp;
-  
+  <% if(allowed.includes(user.id)) { %>
+
+        <a class="btn btn-danger" href="/news/<%- ID %>/remove"><i class="fa fa-trash"></i>&nbsp; Remove</a>&nbsp;
+        
+  <% } %>
   <br>
 <% } %>
 </center>
@@ -47,36 +49,3 @@ Coven.Staff.map(g => allowed.push(g))
     </div>
   </div>
 </center>
-
-<br>
-
-<!-- comments -->
-
-<% let comments = info.comments %>
-
-<% if(comments.length) { %>
-<div class="padded-container">
-  <div class="row"> 
-        <% for(var i=0; i < comments.length; i++) { %>
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <a class="no-color" href="/news/<%= ID %>/comment/<%- comments[i].ID %>">
-                    <div class="card preview-card">
-                        <div class="card-body">
-                            <div class="head">
-                                <img class="float-left lazy" src="//mythicalbots.xyz/bot/<%= comments[i].userID %>/avatar" onerror="this.onerror = null;" this.src = "https://cdn.discordapp.com/embed/avatars/0.png?size=256&quot" alt="Avatar" draggable="false">
-                                    <div class="content">
-                                    <h3 title=""><%= comments[i].userTag %></h3>
-                                    <p class="description" style="color:#fff" title=""> <%= comments[i].desc %> </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        <% } %>
-    </div>	
-</div> 
-
-<% } else { %>
-    <center><h5 class="sub"> No Comments <br> <a href="/forum/<%- ID %>/comment">Add One?</a> </h5></center>
-<% } %>

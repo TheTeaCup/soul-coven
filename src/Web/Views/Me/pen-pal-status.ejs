@@ -1,0 +1,191 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/me/pen-pal", pageType: "" }) %>
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/bots.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/github-markdown.css">
+<div class="index-container" style="background: transparent; ">
+   <div class="text-center">
+      <img class="server-avatar" src="https://mythicalbots.xyz/bot/<%= app.user.id %>/avatar" style="outline-style:red; color: #1b1b1b;" draggable="false" onerror="this.onerror=null;this.src='https://cdn.glitch.com/a555ed97-82ee-4fd0-bf48-544503e0b774%2Fdownload%20(2).jpeg?v=1579188933613';">
+      <p class="server-name" style="outline-style:black; color: #1b1b1b;" title="news"> <%= app.user.name %>'s Pen Pal Application </p>
+      <div class="tag-list"></div>
+      <br>
+   </div>
+</div>
+<% 
+   let al = "warning"
+   if(app.status === "pending") { al = "warning" }
+   if(app.status === "matching") { al = "primary" }
+   if(app.status === "match") { al = "success" }
+   %>
+<% function getAge(DOB) {
+   var today = new Date();
+   var birthDate = new Date(DOB);
+   var age = today.getFullYear() - birthDate.getFullYear();
+   var m = today.getMonth() - birthDate.getMonth();
+   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+       age = age - 1;
+   }
+   
+   return age;
+   } %>
+<%
+   function getZodiac(dob){
+   let d = new Date(dob)
+   let month = d.getMonth() + 1
+   let day = d.getDay()
+   
+   	var datecode = month*100 + day; //this will give us a number represent month and day
+   	if (datecode <= 120){        // Jan 20
+   		return "Capricorn";
+   	}else if (datecode <= 219) { // Feb 19
+   		return "Aquarius";
+   	}else if (datecode <= 320) { // Mar 20
+   		return "Pisces";
+   	}else if (datecode <= 420) { // Apr 20
+   		return "Aries";
+   	}else if (datecode <= 520) { // May 20
+   		return "Taurus";
+   	}else if (datecode <= 621) { // Jun 21
+   		return "Gemini";
+   	}else if (datecode <= 722) { // Jul 22
+   		return "Cancer";
+   	}else if (datecode <= 822) { // Aug 22 
+   	                             
+   		return "Leo";
+   	}else if (datecode <= 921) { // Sept 21
+   		return "Virgo";
+   	}else if (datecode <= 1022) { // Oct 22
+   		return "Libra";
+   	}else if (datecode <= 1121) { // Nov 21
+   		return "Scorpio";
+   	}else if (datecode <= 1221) { // Dec 21
+   		return "Sagittarius";
+   	}else{ //if we hit this case it means we hava greater date code than Dec 21
+   		return "Capricorn";
+   	}
+   }
+   
+   %>
+<div class="container">
+<center>
+   <div class="row" role="alert">
+      <div class="col-md-12" role="alert">
+         <div class="alert alert-primary alert-<%- al %>" role="alert">
+            <h4 class="alert-heading"> Application Status: <%- app.status %>  </h4>
+         </div>
+      </div>
+   </div>
+</center>
+<% let allowed = [];
+   allowed.push(app.user.id)
+   Coven.Developers.map(g=>allowed.push(g))
+   Coven.helpers.map(g=>allowed.push(g))
+   
+   let admin = [];
+   admin.push(app.user.id)
+   Coven.Developers.map(g=>admin.push(g))
+   %>
+<%= console.log(app) %>
+<% if(user) { %>
+<% if(allowed.includes(user.id)) { %>
+<center>
+<% if(admin.includes(user.id)) { %>
+<a class="btn btn-danger" href="/me/pen-pal/<%= app.id %>/delete"><i class="fa fa-trash"></i>&nbsp; Delete </a>
+<% } %>
+<a class="btn btn-warning d-inline-block" href="/me/pen-pal/<%= app.id %>/edit"><i class="fa fa-pen"></i>&nbsp; Edit </a>
+</center>
+<% } %>
+<% } %>
+<div class="container">
+   <div id="errormessage"></div>
+   <div class="col-lg-7 card server-form-panel">
+      <article class="card-body">
+         <form action="" method="post" role="form">
+            <input type="hidden" name="id" value="<%= user.id %>">
+            <h5>Address <span style="color:red">*</span></h5>
+            <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-home" style="padding:0"></i></span>
+               </div>
+               <% if(user) { %>
+               <% if(allowed.includes(user.id)) { %>
+               <input name="add" id="add" class="form-control xtags" placeholder="Street, APT. PO, etc. city, state zip-code" type="text" value="<%= app.address %>" disabled>
+               <% } else { %>
+               <input name="add" id="add" class="form-control xtags" placeholder="Street, APT. PO, etc. city, state zip-code" type="text" value="Hidden for Safety" disabled>
+               <% } %>
+               <% } else { %>
+               <input name="add" id="add" class="form-control xtags" placeholder="Street, APT. PO, etc. city, state zip-code" type="text" value="Hidden for Safety" disabled>
+               <% } %>
+            </div>
+            <p class="help-block">- Ex: 1111 jenny st New York, NY 01010
+            </p>
+            <br>
+            <h5>How old are you? <span style="color:red">*</span></h5>
+            <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-clock" style="padding:0"></i></span>
+               </div>
+               <input name="age" id="age" class="form-control xtags" type="date" value="<%= app.dob %>" disabled>
+            </div>
+            <p class="help-block">- Ex: feb. 8th 2005 = 02/08/2005 <br> - age: <u><%= getAge(app.dob) %> y/o</u> <br> - Zodiac: <u><%= getZodiac(app.dob) %></u>
+            </p>
+            <br>
+            <h5>What are you looking for? <span style="color:red">*</span></h5>
+            <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-question" style="padding:0"></i></span>
+               </div>
+               <textarea onchange="xcheck()" name="what" id="what" height="auto" class="form-control" rows="10" placeholder="What are you looking for?" maxlength="15000" data-max="15000" data-min="100" disabled><%= app.looking %></textarea>
+            </div>
+            <p class="help-block">- Ex for Zodiac Sign: I'd like a gemini since i am a aquarius. <br> - Just give what you are looking for. Ex: 15 y/o male, etc.
+               <br> Example: 15 y/o male, gemini
+            </p>
+            <br>
+            <h5>Relationship Type <span style="color:red">*</span></h5>
+            <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-users" style="padding:0"></i></span>
+               </div>
+               <input name="rel" id="rel" class="form-control xtags" placeholder="friend? more than friend?" type="text" value="<%= app.type %>" disabled>
+            </div>
+            <p class="help-block">- If you don't care put n/a. <br> - Please put detail in what you're looking for
+            </p>
+            <br>
+            <h5>Location Based? <span style="color:red">*</span></h5>
+            <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-globe" style="padding:0"></i></span>
+               </div>
+               <input name="location" id="location" class="form-control xtags" placeholder="west coast? east coast? etc..." type="text" value="<%= app.location %>" disabled>
+            </div>
+            <p class="help-block">- If you none put n/a. <br> - Please put detail in what you're looking for
+            </p>
+            <br>
+            <h5>Anything else? </h5>
+            <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-question" style="padding:0"></i></span>
+               </div>
+               <textarea onchange="xcheck()" name="extra" id="extra" height="auto" class="form-control" rows="5" placeholder="Anything else?" maxlength="15000" data-max="15000" data-min="100" disabled><%= app.extra %></textarea>
+            </div>
+            <p class="help-block">- Optional
+            </p>
+            <br>
+            
+               <h5>Tell us about you! </h5>
+               <div class="form-group input-group">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="fa fa-person" style="padding:0"></i></span>
+                  </div>
+                  <textarea onchange="xcheck()" name="about" id="about" height="auto" class="form-control" rows="5" placeholder="Anything else?" maxlength="15000" data-max="15000" data-min="100" disabled><%= app.about %></textarea>
+               </div>
+               <p class="help-block">- Tell us/the person what you like to do!
+               </p>
+            
+            <hr>
+         </form>
+      </article>
+   </div>
+</div>
+<script>
+   autosize($('textarea'));
+</script>

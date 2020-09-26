@@ -1,0 +1,174 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/me/pen-pal", pageType: "" }) %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/page.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
+<script src="https://use.fontawesome.com/bfddc8ce66.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous" async></script>
+<% 
+   let array = [];
+   all.forEach(g=> array.push("1"))
+   %>
+<main>
+   <div class="jumbotron secondary-jumbotron bg-transparent">
+      <div class="container">
+         <h1>Pen Pal - Application List </h1>
+         <center>
+            <h2 style="font-size:20px;">
+               Here you can view every single application!
+               <br><u>
+               Application's: <%= array.length %>
+               Helpers: <%= Coven.helpers.length %>
+               </u>
+            </h2>
+         </center>
+      </div>
+   </div>
+   <div class="container">
+      <center>
+         <div class="row" role="alert">
+            <div class="col-md-12" role="alert">
+               <div class="alert alert-primary alert-danger" role="alert">
+                  <h4 class="alert-heading"> Still working on this page! </h4>
+               </div>
+            </div>
+         </div>
+      </center>
+   </div>
+   <% function getAge(DOB) {
+      var today = new Date();
+      var birthDate = new Date(DOB);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age = age - 1;
+      }
+      
+      return age;
+      } %>
+   <%
+      function getZodiac(dob){
+      let d = new Date(dob)
+      let month = d.getMonth() + 1
+      let day = d.getDay()
+      
+      	var datecode = month*100 + day; //this will give us a number represent month and day
+      	if (datecode <= 120){        // Jan 20
+      		return "Capricorn";
+      	}else if (datecode <= 219) { // Feb 19
+      		return "Aquarius";
+      	}else if (datecode <= 320) { // Mar 20
+      		return "Pisces";
+      	}else if (datecode <= 420) { // Apr 20
+      		return "Aries";
+      	}else if (datecode <= 520) { // May 20
+      		return "Taurus";
+      	}else if (datecode <= 621) { // Jun 21
+      		return "Gemini";
+      	}else if (datecode <= 722) { // Jul 22
+      		return "Cancer";
+      	}else if (datecode <= 822) { // Aug 22 
+      	                             
+      		return "Leo";
+      	}else if (datecode <= 921) { // Sept 21
+      		return "Virgo";
+      	}else if (datecode <= 1022) { // Oct 22
+      		return "Libra";
+      	}else if (datecode <= 1121) { // Nov 21
+      		return "Scorpio";
+      	}else if (datecode <= 1221) { // Dec 21
+      		return "Sagittarius";
+      	}else{ //if we hit this case it means we hava greater date code than Dec 21
+      		return "Capricorn";
+      	}
+      }
+      
+      %>
+   <center>
+      <h5 class="header"> All Applications Awaiting Match</h5>
+      <hr>
+   </center>
+   <div class="padded-container">
+      <div class="row">
+         <% all.forEach(app => { %>
+         <% if(!app.match) { %>
+         <div class="col-lg-4 col-md-6 col-sm-12">
+            <a class="no-color" href="/me/pen-pal/<%= app.id %>/status">
+               <div class="card preview-card">
+                  <div class="card-body">
+                     <div class="head">
+                        <img class="float-left lazy" src="https://mythicalbots.xyz/bot/<%- app.user.id %>/avatar" alt="Avatar" draggable="false">
+                        <div class="content">
+                           <h3 title="news"><%- app.user.name %></h3>
+                           <p class="description" style="color:#fff; text-transform: capitalize;" title="biography"> 
+                              Age: <%= getAge(app.dob) %> <br>
+                              Sign: <%= getZodiac(app.dob) %> <br>
+                              Code: <code><%= app.id %></code>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </a>
+         </div>
+         <% } %>
+         <% }) %>
+      </div>
+   </div>
+   <hr>
+   <br>
+   <center>
+      <h5 class="header"> All Applications</h5>
+      <hr>
+   </center>
+   <div class="padded-container">
+      <div class="row">
+         <% all.forEach(app => { %>
+         <div class="col-lg-4 col-md-6 col-sm-12">
+            <a class="no-color" href="/me/pen-pal/<%= app.id %>/status">
+               <div class="card preview-card">
+                  <div class="card-body">
+                     <div class="head">
+                        <img class="float-left lazy" src="https://mythicalbots.xyz/bot/<%- app.user.id %>/avatar" alt="Avatar" draggable="false">
+                        <div class="content">
+                           <h3 title="news"><%- app.user.name %></h3>
+                           <p class="description" style="color:#fff; text-transform: capitalize;" title="biography"> 
+                              Age: <%= getAge(app.dob) %> <br>
+                              Sign: <%= getZodiac(app.dob) %> <br>
+                              Code: <code><%= app.id %></code>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </a>
+         </div>
+         <% }) %>
+      </div>
+   </div>
+   <br><br><br>
+   <center>
+      <div class="col-lg-9">
+         <div class="card">
+            <div class="card-body preview-card">
+               <div class="le card-text server-desc container markdown-body ">
+<pre><code>            How To Guide:
+            
+            Want to know how to setup a match? Well heres what you will need:
+            - two users
+            - user's code
+            - user's age
+            - user's birthday (depending if they specified age, zodiac, etc.)
+            
+            Now how to actually matcha two users:
+            - need: two users and their codes
+            - click the purple link below!
+            - fill out form!
+            
+            <a style="color:purple" href="/me/pen-pal/match">Match Form</a>
+</code></pre>
+               </div>
+            </div>
+         </div>
+      </div>
+   </center>
+</main>f

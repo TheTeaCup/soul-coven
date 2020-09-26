@@ -69,6 +69,10 @@ exports.run = async (Mythical, message, args) => {
           {
             allow: permsToHave,
             id: role.id
+          },
+          {
+            allow: permsToHave,
+            id: "751626683924086874"
           }
         ],
         parent: categoria.id,

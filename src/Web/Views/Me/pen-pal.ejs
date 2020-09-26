@@ -1,0 +1,83 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/me/pen-pal", pageType: "" }) %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/page.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
+<script src="https://use.fontawesome.com/bfddc8ce66.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous" async></script>
+<main>
+   <div class="jumbotron secondary-jumbotron bg-transparent">
+      <div class="container">
+         <h1>Pen Pal Settings </h1>
+         <center>
+            <h2 style="font-size:20px;">Here you can view your status, apply, and more!</h2>
+         </center>
+      </div>
+   </div>
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-4">
+            <a class="bg-transparent" href="/me/pen-pal/apply"
+               >
+               <div class="card action-card preview-card">
+                  <div class="card-body">
+                     <h2>Apply</h2>
+                  </div>
+               </div>
+            </a>
+         </div>
+         <% 
+            let app = Coven.pen.get(user.id)
+            let match = null;
+            
+            if(app) {
+               if(app.match) {
+                   match = app.match
+               }
+            }
+            
+            %>
+         <% if (app) { %>
+         <div class="col-lg-4">
+            <a class="bg-transparent" href="/me/pen-pal/<%= app.id %>/status"
+               >
+               <div class="card action-card preview-card">
+                  <div class="card-body">
+                     <h2>View Status</h2>
+                  </div>
+               </div>
+            </a>
+         </div>
+         <% } else { %>
+         <div class="col-lg-4">
+            <div class="card action-card preview-card">
+               <div class="card-body">
+                  <h2>Need to Apply</h2>
+               </div>
+            </div>
+         </div>
+         <% } %>
+         <% if(match) { %>
+         <div class="col-lg-4">
+            <a class="bg-transparent" href="/me/pen-pal/<%= app.id %>/match"
+               >
+               <div class="card action-card preview-card">
+                  <div class="card-body">
+                     <h2>View Match</h2>
+                  </div>
+               </div>
+            </a>
+         </div>
+         <% } else { %>
+         <div class="col-lg-4">
+            <div class="card action-card preview-card">
+               <div class="card-body">
+                  <h2>No Match</h2>
+               </div>
+            </div>
+         </div>
+         <% } %>
+      </div>
+   </div>
+   </div>
+   </div>
+</main>

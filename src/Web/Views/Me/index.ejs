@@ -86,4 +86,101 @@ color:#1b1b1b;
 
 <% } %>
 
-<center><a class="btn btn-success" href="/me/staff-application"><i class="fa fa-pen"></i>&nbsp; Staff Application</a>&nbsp;</center>
+<center>
+
+<% let guild = Coven.guilds.cache.get("734953770961600593")
+
+let members = guild.members.cache;
+let isn = members.get(user.id);
+
+%>
+
+<% if(isn) { %>
+<a class="btn btn-success" href="/me/staff-application"><i class="fas fa-user-shield"></i>&nbsp; Staff Application</a>&nbsp;
+<a class="btn btn-success" href="/me/pen-pal"><i class="fa fa-pen"></i>&nbsp; Pen Pal</a>&nbsp;
+<% } %>
+
+<% 
+let allowed = [];
+Coven.helpers.map(g=>allowed.push(g))
+Coven.Staff.map(g=>allowed.push(g))
+%>
+
+<a class="btn" style="background: #1b1b1b;" href="/forum/new"><i class="fa fa-pen"></i>&nbsp; Create Forum Post</a>&nbsp;
+
+<br>
+
+<% if(allowed.includes(user.id)) { %>
+<a class="btn btn-primary" href="/me/pen-pal/all"><i class="fas fa-clipboard-list"></i>&nbsp; All Pen Pal Applications</a>&nbsp;
+<% } %>
+ 
+</center>
+
+<hr>
+<br><br>
+<div class="py-5 ">
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<div class="card">
+<div class="card-body">
+<h4>Guild Management</h4>
+<h6 class="text-muted">Select the guild you want to manage. To be able to see new guilds, please <a href="/logout">re-login</a>.</h6>
+<br />
+<div class="row">
+
+
+  <% user.guilds.forEach(guild => { 
+    const permsOnGuild = new perms(guild.permissions);
+    if(!permsOnGuild.has("MANAGE_GUILD")) return;
+   %>
+     
+   <% let href, text;
+      let enabled;
+      let disabled;
+      let classification;
+      let url;
+      
+  
+        if(Coven.guilds.cache.get(guild.id)) {
+          
+          href = `/me/${guild.id}/edit`;
+          text = "Bot is in the server.";
+          enabled = "ntf-green";
+          classification = "check";
+
+        } else {
+          
+          href = `https://discordapp.com/oauth2/authorize?client_id=${Coven.user.id}&scope=bot&permissions=2080767185&response_type=code&redirect_uri=https://soulcoven.me/me&guild_id=${guild.id}`;
+          text = "Please invite bot.";
+          enabled = "ntf-orange";
+          classification = "times";
+          
+        }  %>
+   
+<div class="col-md-4" style="padding-bottom: 25px;">
+<center>
+<div class="item">
+<a href="<%= href %>">
+<span class="notify-badge <%= enabled %>" data-toggle="tooltip" data-placement="top" title="<%= text %>"><i class="fa d-inline fa-lg fa-<%= classification %>">
+  </i></span>
+  <% if (guild.icon) { %>
+   <img class="img-fluid d-block rounded-circle mx-auto" src="<%= `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=128`; %>" alt="" data-toggle="tooltip" data-placement="top" title="<%= guild.name %>">
+  <% } else { %>
+  <img class="d-flex mr-3 rounded-circle" src="https://i.imgur.com/2otMem9.png" style="width: 140px;" alt="">
+<% } %>
+  </a>
+</div>
+</center>
+</div>
+
+<% }) %>
+  <!-- End user Guilds -->
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

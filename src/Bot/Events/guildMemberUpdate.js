@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports = async (client, oldMember, newMember) => {
-if (member.guild.id === settings.guild-id) {
+if (oldMember.guild.id === settings.guild) {
   if (oldMember.nickname !== newMember.nickname) {
     const embed = new Discord.MessageEmbed()
       .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL())
