@@ -1,11 +1,6 @@
 <%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/me", pageType: "" }) %>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/page.css">
-<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
-<script src="https://use.fontawesome.com/bfddc8ce66.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous" async></script>
-
+<%- include('../Blocks/ToolTip.ejs') %>
 
 <main>
   <div class="jumbotron secondary-jumbotron bg-transparent">
@@ -21,15 +16,17 @@ allowed.push(inf)
 Coven.Developers.map(g=>allowed.push(g))
 %>
 
-
 <center>
   <% if(Coven.Developers.includes(user.id)) { %>
-       <a class="btn btn-success" href="/me/staff-application/<%- key %>/approve"><i class="fa fa-pen"></i>&nbsp; Approve </a>
-       <a class="btn btn-warning" href="/me/staff-application/<%- key %>/reject"><i class="fa fa-pen"></i>&nbsp; Reject</a>
+       <a class="btn btn-success" href="/me/staff-application/<%- key %>/approve"><i class="fa fa-check"></i>&nbsp; Approve </a>
+       <a class="btn btn-info" href="/me/staff-application/<%- key %>/reject"><i class="fa fa-times"></i>&nbsp; Reject</a>
     <% } %>
     
    <% if(allowed.includes(user.id)) { %>
-          <a class="btn btn-danger" href="/me/staff-application/<%- key %>/remove"><i class="fa fa-pen"></i>&nbsp; Remove </a>
+          <a class="btn btn-danger" href="/me/staff-application/<%- key %>/remove"><i class="fa fa-trash"></i>&nbsp; Remove </a>
+          
+          <a class="btn btn-warning d-inline-block" tabindex="0" data-toggle="tooltip" title="Editing Staff Applications are not ready yet!" disabled><i class="fa fa-pen"></i>&nbsp; Edit </a>
+           
    <% } %>
 </center>
     <% 
@@ -146,6 +143,7 @@ Coven.Developers.map(g=>allowed.push(g))
   
 </main>
 
+
 <script>
-$('textarea').autoResize();
+   autosize($('textarea'));
 </script>

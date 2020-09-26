@@ -1,102 +1,21 @@
-<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/forum", pageType: "" }) %>
+<%- include('../Blocks/Header.ejs', { Coven, user, Page: "News", Redirect: "/news", pageType: "" }) %>
+
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
 <script src="https://use.fontawesome.com/bfddc8ce66.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous" async></script>
 
-<style>
-  .tagstext {
-    text-align: center;
-    margin: auto;
-    margin-top: 25px;
-    /*margin-left: -235px;*/
-    font-weight: bold;
-    font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    opacity: 0.9;
-	  text-transform: uppercase;
-  }
-  .tagsbox {
-    text-align: center;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    border: 2px dashed white;
-    border-radius: 4px;
-    max-width: 35%;
-    width: auto;
-    height: auto;
-    margin: auto;
-    padding: 8px;
-  }
-  .tagbutton {
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-drag: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    display: inline-block;
-    width: auto;
-    background: #1b1b1b;
-    color: #fff;
-    padding: 5px;
-    opacity: 0.75;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: border-bottom 0.2s ease-in-out;
-    font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-  }
-  .tagbutton:hover {
-    opacity: 1;
-    color: white;
-    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255));
-  }
-  </style>
-
-<%- include('../Blocks/ToolTip.ejs') %>
 
 <main>
   <div class="jumbotron secondary-jumbotron bg-transparent">
       <div class="container">
-            <h1>Forum </h1>
-            <center><h2 style="font-size:20px;">A place for information of all types!</h2></center>
+            <h1>Soul Coven News </h1>
+            <center><h2 style="font-size:20px;"> A place for Soul Coven related new! </h2></center>
       </div>
   </div>
   
-    <div class="tagstext"><h2> Forum Categories </h2></div>
-        <div class="tagsbox">
-            <% for(var i=0; i < types.length; i++) { %>
-            
-        <% 
-            let ty = "question"
-            if(types[i] === "Information") {
-                ty = "info"
-            }
-            
-            if(types[i] === "Help") {
-                ty = "hand-paper"
-            }
-            
-            if(types[i] === "Social Media") {
-                ty = "share-alt-square"
-            }
-            
-        %>
-            <div class="tagbutton" onclick="window.location.href='/forum/search/tags?q=<%= types[i].toLowerCase() %>'"><span class="icon"><i class="fas fa-<%= ty %>" aria-hidden="true"></i></span> <%= types[i] %></div>
-            <% } %>
-            
-        </div>
-  
-  <center>
-  <% if(user) { %>
-  <a class="btn" style="background: #1b1b1b;" href="/forum/new"><i class="fa fa-pen"></i>&nbsp; Create Post</a>&nbsp;
-  <% } else { %>
-  <a class="btn" style="background: #1b1b1b;" href="/login?redirect=/forum"><i class="fa fa-pen"></i>&nbsp; Login to Post!</a>&nbsp;
-  <% } %>
-  </center>
-  
-<% if(e === "nf") { %>
+  <% if(e === "nf") { %>
       <br>
 <div class="container">
  <center>
@@ -113,29 +32,27 @@
 </div> 
 <% } %>
 
-<br>
-<br>
-<br>
-
-
-<center>
-<h5 class="header">Temp Spot for Forum List</h5>
-</center>
+<% if(user) { %>
+  <% if(Coven.Staff.includes(user.id)) { %>
+      <center><a class="btn btn-warning" href="/news/create"><i class="fa fa-pen"></i>&nbsp; Create News</a>&nbsp;</center>
+      <br>
+  <% } %>
+<% } %>
 
 <div class="padded-container">
   <div class="row"> 
   
-  <% for(var i=0; i < all.length; i++) { %>
+<% for(var i=0; i < all.length; i++) { %>
   
     <div class="col-lg-4 col-md-6 col-sm-12">
-      <a class="no-color" href="/forum/<%= all[i].ID %>">
+      <a class="no-color" href="/news/<%= all[i].ID %>">
         <div class="card preview-card">
           <div class="card-body">
             <div class="head">
-              <img class="float-left lazy" src="<%= all[i].image %>" alt="Avatar" draggable="false">
+              <img class="float-left lazy" src="<%= all[i].image %>" onerror="this.onerror = null; this.src = &quot;https://cdn.discordapp.com/embed/avatars/0.png?size=256&quot;;" alt="Avatar" draggable="false">
               <div class="content">
-                <h3 title="news"><%- all[i].name %></h3>
-                <p class="description" style="color:#fff;" title="biography">Written by: <%- Coven.users.cache.get(all[i].user).tag %> <br> Type: <%= all[i].type.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))); %> </p>
+                <h3 title=""><%= all[i].name %></h3>
+                <p class="description" style="color:#fff" title=""><%= all[i].type %> <br> From: <%= Coven.users.cache.get(all[i].editor).tag %></p>
               </div>
             </div>
           </div>
@@ -143,9 +60,11 @@
       </a>
     </div>
     
-  <% } %>
-
+<% } %>
+    
     </div>	
 </div> 
   
 </main>
+
+<%- include('../Blocks/ToolTip.ejs') %>

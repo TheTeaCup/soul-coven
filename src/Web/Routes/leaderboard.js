@@ -45,8 +45,8 @@ Router.get("/:ID", async (req, res) => {
     });
 
   var totalStudents = users.length,
-    pageSize = 30,
-    pageCount = 80 / 30,
+    pageSize = 15,
+    pageCount = 80 / 15,
     currentPage = 1,
     bots = [],
     botsArrays = [],
@@ -71,7 +71,8 @@ Router.get("/:ID", async (req, res) => {
     Page,
     d,
     guild,
-    ID
+    ID,
+    currentPage: req.query.page
   });
 });
 

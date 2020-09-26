@@ -5,7 +5,7 @@ module.exports = async (Mythical, guild) => {
   console.log(
     `The bot just joined to ${guild.name}, Owned by ${guild.owner.user.tag}`
   );
-  const logsServerJoin2 = Mythical.channels.cache.get(settings.server-log);
+  const logsServerJoin2 = Mythical.channels.cache.get(settings.server);
   let a = "Welcome!";
 
   const embed = new Discord.MessageEmbed()
@@ -33,20 +33,39 @@ module.exports = async (Mythical, guild) => {
     )
     .setTimestamp();
   logsServerJoin2.setTopic(
-    `Bot Stats: Users ${Mythical.users.cache.size} || Guilds ${Mythical.guilds.cache.size}`
+    `Bot Stats: Users ${Mythical.users.cache.size.toLocaleString()} || Guilds ${Mythical.guilds.cache.size.toLocaleString()}`
   );
-
-  let Data = {
-    ID: guild.id,
-    prefix: "a!",
-    modinvites: "false",
-    modlang: "false",
-    leveling: "false",
-    levellog: "",
-    modlog: ""
-  }
-
-  Mythical.settings.set(guild.id,Data);
+  
+    Mythical.settings.ensure(guild.id, {
+    roles: [],
+    prefix: "c!",
+    messageroles: [],
+    levelsystem: false,
+    message: "Not set",
+    channel: 0,
+    xpgain: [{ first: 0, second: 30 }],
+    noxproles: [],
+    noxpchannels: [],
+    userchannels: [],
+    userchannelcreate: { category: "none", channel: "none" },
+    antiinvite: false,
+    roleschannel: "none",
+    imagechannel: [],
+    doublexproles: [],
+    welcomeroles: [],
+    welcomechannel: "none",
+    welcomemessage: [
+      { message: "none" },
+      {
+        title: "none",
+        description: "none",
+        image: "none",
+        footer: "none",
+        color: "none",
+        embed: false
+      }
+    ]
+  });
 
   logsServerJoin2.send(embed);
 };

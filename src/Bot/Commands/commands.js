@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 
 exports.run = async (Mythical, message, args) => {
+  if(message.guild.id !== settings.guild)return message.channel.send("Sorry this command is only allowed in `The Witches Of The Soul` Discord server")
+
   if (!Mythical.Developers.includes(message.author.id)) {
     return message.channel.send(
       "Sorry but this command is lock to the `High Council`!"

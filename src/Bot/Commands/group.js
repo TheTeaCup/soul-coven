@@ -2,6 +2,8 @@ const Discord = require("discord.js");
 let groups = ["group-1", "group-2", "group-3", "group-4", "group-5"];
 
 exports.run = async (Mythical, message, args) => {
+  if(message.guild.id !== settings.guild)return message.channel.send("Sorry this command is only allowed in `The Witches Of The Soul` Discord server")
+
   let info = Mythical.db.get(message.author.id);
 
   let guild = Mythical.guilds.cache.get("734953770961600593");

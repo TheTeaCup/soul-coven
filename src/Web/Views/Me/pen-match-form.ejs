@@ -1,0 +1,117 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/me/staff-application", pageType: "" }) %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/page.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
+<script src="https://use.fontawesome.com/bfddc8ce66.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous" async></script>
+<main>
+   <div class="jumbotron secondary-jumbotron bg-transparent">
+      <div class="container">
+         <h1>Pen Pal Application </h1>
+         <center>
+            <h2 style="font-size:20px;">Apply for a pen pal!</h2>
+         </center>
+      </div>
+   </div>
+   <!--
+      Ideas:
+      - address
+      - birth date
+      - preferred zodiac sign? or random person
+      - relationship? friend ship?
+      - near you? east coast? west coast? nation wide?
+      
+      
+      
+      -->
+      
+<% 
+let m = ""
+if(e === "user_1_no_app") m = "The ID for user 1 is incorrect"
+if(e === "user_2_no_app") m = "The ID for user 2 is incorrect"
+if(e === "no_reason") m = "Please give a reason why you paried them"
+
+%>
+
+<% if(m) { %>
+
+<div class="container">
+<center>
+   <div class="row" role="alert">
+      <div class="col-md-12" role="alert">
+         <div class="alert alert-primary alert-danger" role="alert">
+            <h4 class="alert-heading"> <%= m %> </h4>
+         </div>
+      </div>
+   </div>
+</center>
+<% } %>
+
+<%
+let m2 = ""
+if(s === "matched") m2 = "Users where sucessfully matched"
+%>
+
+<% if(m2) { %>
+
+<div class="container">
+<center>
+   <div class="row" role="alert">
+      <div class="col-md-12" role="alert">
+         <div class="alert alert-primary alert-success" role="alert">
+            <h4 class="alert-heading"> <%= m2 %> </h4>
+         </div>
+      </div>
+   </div>
+</center>
+<% } %>
+
+      
+   <div class="container">
+      <div id="errormessage"></div>
+      <div class="col-lg-7 card server-form-panel">
+         <article class="card-body">
+            <form action="" method="post" role="form">
+               <input type="hidden" name="id" value="<%= user.id %>">
+               <h5>User 1s ID <span style="color:red">*</span></h5>
+               <div class="form-group input-group">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="fa fa-id-badge" style="padding:0"></i></span>
+                  </div>
+                  <input name="u1" id="u1" class="form-control xtags" placeholder="random string of number and letters" type="text" value="" required>
+               </div>
+             
+            
+               <h5>User 2s ID <span style="color:red">*</span></h5>
+               <div class="form-group input-group">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="fa fa-id-badge" style="padding:0"></i></span>
+                  </div>
+                  <input name="u2" id="u2" class="form-control xtags" placeholder="random string of number and letters" type="text" value="" required>
+               </div>
+               <p class="help-block">- A list of every users ID can be found here: <a style="color:purple" rel="nofollow" target="blank" href="https://soulcoven.me/me/pen-pal/all">Click Me!</a>
+               </p>
+               <br>
+               <h5>Why pair these two? </h5>
+               <div class="form-group input-group">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="fa fa-question" style="padding:0"></i></span>
+                  </div>
+                  <textarea onchange="xcheck()" name="why" id="why" height="auto" class="form-control" rows="10" placeholder="Anything else?" maxlength="15000" data-max="15000" data-min="100"></textarea>
+               </div>
+               <p class="help-block">- Tell the people why you paried them.
+               </p>
+               
+               <br>
+               <hr>
+               <div class="form-group">
+                  <button type="submit" class="btn btn-red btn-block" id="ssubm" name="ssubm" onclick="return xcheck();">Submit</button>
+               </div>
+            </form>
+         </article>
+      </div>
+   </div>
+</main>
+<script>
+   autosize($('textarea'));
+</script>

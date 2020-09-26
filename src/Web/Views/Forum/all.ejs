@@ -10,11 +10,10 @@
     text-align: center;
     margin: auto;
     margin-top: 25px;
-    /*margin-left: -235px;*/
     font-weight: bold;
     font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
     opacity: 0.9;
-	  text-transform: uppercase;
+	text-transform: uppercase;
   }
   .tagsbox {
     text-align: center;
@@ -52,7 +51,7 @@
     color: white;
     filter: drop-shadow(0px 0px 4px rgba(255, 255, 255));
   }
-  </style>
+</style>
 
 <%- include('../Blocks/ToolTip.ejs') %>
 
@@ -65,7 +64,8 @@
   </div>
   
     <div class="tagstext"><h2> Forum Categories </h2></div>
-        <div class="tagsbox">
+       <!-- <div class="tagsbox"> -->
+<center>
             <% for(var i=0; i < types.length; i++) { %>
             
         <% 
@@ -82,19 +82,29 @@
                 ty = "share-alt-square"
             }
             
-        %>
-            <div class="tagbutton" onclick="window.location.href='/forum/search?q=<%= types[i].toLowerCase() %>'"><span class="icon"><i class="fas fa-<%= ty %>" aria-hidden="true"></i></span> <%= types[i] %></div>
-            <% } %>
+            if(types[i] === "Witch Types") {
+                ty = "hat-wizard"
+            }
             
-        </div>
+            if(types[i] === "Spells") {
+                ty = "magic"
+            }
+            
+        %>
+    <div class="tagbutton" onclick="window.location.href='/forum/search/tags?q=<%= types[i].toLowerCase().replace(/\s/g, '-') %>'">
+        <span class="icon"><i class="fas fa-<%= ty %>" aria-hidden="true"></i></span> <%= types[i] %>
+    </div>
+            <% } %>
+</center>
+       <!-- </div> -->
   
-  <center>
+<center>
   <% if(user) { %>
-  <a class="btn" style="background: #1b1b1b;" href="/forum/new"><i class="fa fa-pen"></i>&nbsp; Create Post</a>&nbsp;
-  <% } else { %>
-  <a class="btn" style="background: #1b1b1b;" href="/login?redirect=/forum"><i class="fa fa-pen"></i>&nbsp; Login to Post!</a>&nbsp;
+    <a class="btn" style="background: #1b1b1b;" href="/forum/new"><i class="fa fa-pen"></i>&nbsp; Create Post</a>&nbsp;
+        <% } else { %>
+    <a class="btn" style="background: #1b1b1b;" href="/login?redirect=/forum"><i class="fa fa-pen"></i>&nbsp; Login to Post!</a>&nbsp;
   <% } %>
-  </center>
+</center>
   
 <% if(e === "nf") { %>
       <br>
@@ -128,14 +138,14 @@
   <% for(var i=0; i < all.length; i++) { %>
   
     <div class="col-lg-4 col-md-6 col-sm-12">
-      <a class="no-color" href="/forum/<%- all[i].ID %>">
+      <a class="no-color" href="/forum/<%= all[i].ID %>">
         <div class="card preview-card">
           <div class="card-body">
             <div class="head">
-              <img class="float-left lazy" src="<%- all[i].image %>" alt="Avatar" draggable="false">
+              <img class="float-left lazy" src="<%= all[i].image %>" alt="Avatar" draggable="false">
               <div class="content">
                 <h3 title="news"><%- all[i].name %></h3>
-                <p class="description" style="color:#fff; text-transform: capitalize;" title="biography">Written by: <%- Coven.users.cache.get(all[i].user).tag %> <br> Type: <%= all[i].type.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))); %> </p>
+                <p class="description" style="color:#fff;" title="biography">Written by: <%- all[i].user.name %> <br> Type: <%= all[i].type.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))); %> </p>
               </div>
             </div>
           </div>

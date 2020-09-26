@@ -1,6 +1,9 @@
 const Discord = require("discord.js");
 
 exports.run = async (Mythical, message, args) => {
+  if(message.guild.id !== settings.guild)return message.channel.send("Sorry this command is only allowed in `The Witches Of The Soul` Discord server")
+
+    
   let guild = Mythical.guilds.cache.get("734953770961600593");
   let member = guild.members.cache.get(message.author.id);
   let roles = guild.roles.cache;

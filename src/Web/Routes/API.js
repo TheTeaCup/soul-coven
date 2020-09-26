@@ -23,7 +23,9 @@ Router.get("/user", async (req, res) => {
   }
 });
 
-
+Router.get("/flash", async (req, res) => {
+    res.send(req.flash());
+})
 
 
 Router.get(

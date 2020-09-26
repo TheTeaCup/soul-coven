@@ -1,15 +1,15 @@
 {
-"TOKEN":"BOTTOKEN",
-  "serverID": "ID",
-  "channelID": "ID",
+"TOKEN":"NzM1MzEzMDI5MDE2ODQ2NDg3.Xxebnw.v06sV-mIkjhwL8nBmrEwVDEOzFY",
+  "serverID": "734953770961600593",
+  "channelID": "735712512485359716",
   "reactionEmoji": "⭐",
   "threshold": 2,
   "hexcolor": "f2ea00",
   "dateCutoff": 30,
   "fetchLimit": 100,
   
-  "yourID":"owner",
-  "setupCMD": "!reactembed",
+  "yourID":"338192747754160138",
+  "setupCMD": "!ckhfdkfghdgi4547563",
   "deleteSetupCMD": "false",
   "initialMessage": "**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**",
   "embedMessage": "React to the emoji that matches the role you wish to receive. \nIf you would like to remove the role, simply remove your reaction!",
@@ -20,7 +20,9 @@
     "18+",
     "dms-open",
     "dms-closed",
-    "dms-ask"
+    "dms-ask",
+    "weekly-spell",
+    "pen-pals"
   ],
   "reactions": [
       "⬆️",
@@ -28,15 +30,18 @@
       "🧑",
       "🆗",
       "📕",
-      "❓"
+      "❓",
+      "🧙",
+      "✏️"
   ],
   "embed": true,
   "embedColor": "#2C2F33",
-  "PORT": "WEBSITEPORT",
-  "secret": "discord-bot-secret",
-  "mongo": "mongo-db",
-  "mod-log": "channel-id",
-  "guild": "guild-id",
-  "server-log": "log-for-server-joins/leaves"
+  "PORT": "1267",
+  "secret": "D0Xy2Gtq-YbeARhxDHahcy2mSl4VxtLv",
+  "mongo": "mongodb://teacup:56836@bumperpremium-shard-00-00-pacps.mongodb.net:27017,bumperpremium-shard-00-01-pacps.mongodb.net:27017,bumperpremium-shard-00-02-pacps.mongodb.net:27017/test?ssl=true&replicaSet=BumperPremium-shard-0&authSource=admin&retryWrites=true",
+  "mod": "735305448449638472",
+  "guild": "734953770961600593",
+  "server": "744592765844717650",
+  "api":"AIzaSyCZf6fUZ7zNLIMj3eReDRC8m7AVXyUz0qM"
  
 }

@@ -16,6 +16,8 @@ async function embedSan(embed) {
 }
 
 exports.run = async (Mythical, message, args) => {
+  if(!message.guild.id !== settings.guild)return message.channel.send("Sorry this command is only allowed in `The Witches Of The Soul` Discord server")
+
    if (!Mythical.Staff.includes(message.author.id))
     return message.channel.send("Sorry but to use this command you must be a staff member!");
 

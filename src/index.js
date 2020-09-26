@@ -6,6 +6,7 @@ const fs = require("fs");
 
 require("./Web/index.js");
 
+/*
 Coven.on("message", async message => {
   // eslint-disable-line
   if (message.channel.type != "text") return;
@@ -74,16 +75,8 @@ Coven.on("message", async message => {
       message.channel.send("No invite links!");
     }
 
-    /* if (/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/.test(message.content.toLowerCase())){
-        message.delete().catch(O_o => {});
-        
-        Quick.add(`userWarnings_${message.author.id}`, 1)
-        Quick.push(`warnreasons.${message.author.id}`, "Link Detection.");
-        
-        Coven.channels.cache.get('735347186090377265').send(`**${message.author.tag}(${message.author.id})** tried sending the following in **${message.guild.name}**:\n${message.content}\n\n**Deleted the content and gave this user a warning.**`);
-      }; */
   }
-});
+}); */
 
 let cooldown = new Set();
 
@@ -94,7 +87,7 @@ Coven.on("message", msg => {
     roles: [],
     prefix: "c!",
     messageroles: [],
-    levelsystem: true,
+    levelsystem: false,
     message: "Not set",
     channel: 0,
     xpgain: [{ first: 0, second: 30 }],
@@ -188,12 +181,13 @@ Coven.on("message", msg => {
   if (
     Coven.profile.get(`${msg.guild.id}-${msg.author.id}`, "level") < curLevel
   ) {
-    let message = Coven.settings.get(msg.guild.id, "message");
+    let message = `{user} has leveled up to level **{level}**! `; //Coven.settings.get(msg.guild.id, "message");
     let channel = Coven.settings.get(msg.guild.id, "channel");
 
     if (!channel) channel = msg.channel.id;
-    if (message == "Not set")
+  /*  if (message === "Not set") {
       message = `{user} has leveled up to level **{level}**! `;
+    } */
     if (Coven.profile.get(`${msg.guild.id}-${msg.author.id}`, "level") === 0) {
       Coven.profile.set(`${msg.guild.id}-${msg.author.id}`, 1, "level");
     } else if (

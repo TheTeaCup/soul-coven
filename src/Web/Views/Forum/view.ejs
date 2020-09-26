@@ -20,32 +20,78 @@ let allowed = []
 allowed.push(Editor)
 Coven.Staff.map(g => allowed.push(g))
 
+let now ="g"
+if(info.commentsEn === true) { now = "Disable" }
+if(info.commentsEn === false) { now = "Enable" }
+
 %>
 
 <center>
-  <% if(Coven.Staff.includes(user.id)) { %>
+   <% if(allowed.includes(user.id)) { %>
 
         <a class="btn btn-warning" href="/forum/<%- ID %>/edit"><i class="fa fa-pen"></i>&nbsp; Edit</a>&nbsp;
+        <a class="btn btn-danger" href="/forum/<%- ID %>/remove"><i class="fa fa-trash"></i>&nbsp; Remove</a>&nbsp;
+        <a class="btn btn-danger" href="/forum/<%- ID %>/settings/comments"><i class="fa fa-trash"></i>&nbsp; <%- now %> Comments</a>&nbsp;
         
   <% } %>
   
-  <% if(allowed.includes(user.id)) { %>
-
-        <a class="btn btn-danger" href="/forum/<%- ID %>/remove"><i class="fa fa-trash"></i>&nbsp; Remove</a>&nbsp;
-        
-  <% } %>
+    <a class="btn btn-danger" href="/forum/<%- ID %>/report"><i class="fa fa-flag"></i>&nbsp; Report</a>&nbsp;
+  
   <br>
 <% } %>
 </center>
 
-<center>
-  <div class="col-lg-9">
+  <div class="col-lg-9" style="margin-left:auto; margin-right:auto;">
     <div class="card">
       <div class="card-body preview-card">
-        <div class="le card-text server-desc container markdown-body ">
+        <div class="le card-text server-desc container markdown-body " align="justify">
           <%- Desc %>
         </div>
       </div>
     </div>
   </div>
-</center>
+
+
+<br>
+
+<!-- comments -->
+
+<%
+
+let comments = info.comments;
+let enabled = info.commentsEn;
+
+%>
+
+<% if(enabled === true) { %>
+
+<% if(comments.length) { %>
+<div class="padded-container">
+  <div class="row"> 
+        <% for(var i=0; i < comments.length; i++) { %>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <a class="no-color" href="/news/<%= ID %>/comment/<%- comments[i].ID %>">
+                    <div class="card preview-card">
+                        <div class="card-body">
+                            <div class="head">
+                                <img class="float-left lazy" src="//mythicalbots.xyz/bot/<%= comments[i].userID %>/avatar" onerror="this.onerror = null;" this.src = "https://cdn.discordapp.com/embed/avatars/0.png?size=256&quot" alt="Avatar" draggable="false">
+                                    <div class="content">
+                                    <h3 title=""><%= comments[i].userTag %></h3>
+                                    <p class="description" style="color:#fff" title=""> <%= comments[i].desc %> </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <% } %>
+    </div>	
+</div> 
+
+<% } else { %>
+    <center><h5 class="sub"> No Comments <br> <a href="/forum/<%- ID %>/comment">Add One?</a> </h5></center>
+<% } %>
+
+<% } else { %>
+<center><h5 class="sub"> Comments have been Disabled for this post! </h5></center>
+<% } %>
