@@ -27,6 +27,7 @@ const NewsRoute = require("./Routes/News.js");
 const ForumRoute = require("./Routes/Forum.js");
 const LBRoute = require("./Routes/Leaderboard.js");
 const AdminRoute = require("./Routes/Admin.js");
+const ChatRoute = require("./Routes/Chat.js");
 
 
 /*
@@ -59,7 +60,7 @@ passport.deserializeUser((obj, done) => {
 passport.use(
   new strategy(
     {
-      clientID: "735313029016846487",
+      clientID: Coven.user.id,
       clientSecret: settings.secret,
       callbackURL: "https://soulcoven.me/api/callback",
       scope: ["identify", "guilds"]
@@ -155,6 +156,7 @@ app.use("/forum", ForumRoute);
 app.use("/news", NewsRoute);
 app.use("/leaderboard", LBRoute);
 app.use("/admin", AdminRoute);
+app.use("/chat", ChatRoute);
 
 
 /*

@@ -1,0 +1,89 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/forum", pageType: "" }) %>
+
+<% if(type === "main") { %>
+<!-- /chat -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
+<script src="https://use.fontawesome.com/bfddc8ce66.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous" async></script>
+
+<style>
+  .tagstext {
+    text-align: center;
+    margin: auto;
+    margin-top: 25px;
+    font-weight: bold;
+    font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    opacity: 0.9;
+	text-transform: uppercase;
+  }
+  .tagsbox {
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border: 2px dashed white;
+    border-radius: 4px;
+    max-width: 35%;
+    width: auto;
+    height: auto;
+    margin: auto;
+    padding: 8px;
+  }
+  .tagbutton {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    display: inline-block;
+    width: auto;
+    background: #1b1b1b;
+    color: #fff;
+    padding: 5px;
+    opacity: 0.75;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: border-bottom 0.2s ease-in-out;
+    font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+  }
+  .tagbutton:hover {
+    opacity: 1;
+    color: white;
+    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255));
+  }
+</style>
+
+<%- include('../Blocks/ToolTip.ejs') %>
+
+<main>
+  <div class="jumbotron secondary-jumbotron bg-transparent">
+      <div class="container">
+            <h1>Soul Coven - Chat </h1>
+            <center><h2 style="font-size:20px;">Create a new chat or see a previous chat!</h2></center>
+      </div>
+  </div>
+  
+<center>
+    <a class="btn" style="background: #1b1b1b;" href="/chat/new"><i class="fa fa-pen"></i>&nbsp; Create Chat</a>&nbsp;
+</center>
+
+<% } else if(type === "user") { %>
+<!-- /chat/:ID - message a user -->
+
+<div class="container">
+<center>
+<div class="row" role="alert">
+<div class="col-md-12" role="alert">
+<div class="alert alert-primary alert-danger" role="alert">
+<h4 class="alert-heading"> Still working on this page! </h4>
+</div>
+</div>
+</div>
+</center>
+</div>
+
+<% } else { %>
+
+<% } %>

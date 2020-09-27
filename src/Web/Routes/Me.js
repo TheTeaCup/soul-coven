@@ -58,7 +58,7 @@ Router.post("/staff-application", checkAuth, async (req, res) => {
 
   // smaller server
   Coven.channels.cache
-    .get("740590269308600452")
+    .get("759236097967521822")
     .send(
       "**New Staff Application:** \n User: <@" +
         user.id +
@@ -173,7 +173,7 @@ Router.get("/staff-application/:ID/reject", async (req, res) => {
 
   // smaller server
   Coven.channels.cache
-    .get("740590334899126412")
+    .get("759236132860330045")
     .send(
       "**Staff Application Rejected:** \n User: <@" +
         inf +
@@ -233,7 +233,7 @@ Router.get("/staff-application/:ID/approve", async (req, res) => {
 
   // smaller server
   Coven.channels.cache
-    .get("740590334899126412")
+    .get("759236132860330045")
     .send(
       "**Staff Application Approved:** \n User: <@" +
         inf +
@@ -450,7 +450,7 @@ Router.post("/pen-pal/apply", checkAuth, async (req, res) => {
 });
 
 Router.get("/pen-pal/:ID/status", checkAuth, async (req, res) => {
-  let Page = "Staff Application";
+  let Page = "Pen-Pal";
   let user = req.isAuthenticated() ? req.user : null;
   let ID = req.params.ID;
 

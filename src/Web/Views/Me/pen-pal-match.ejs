@@ -76,6 +76,11 @@
    Coven.Developers.map(g=>admin.push(g))
    %>
 <%= console.log(match) %>
+
+<center>
+<a class="btn btn-primary" href="/chat/new?user=<%= match.user.id %>"><i class="fa fa-pen"></i>&nbsp; Message Pen Pal</a>&nbsp;
+</center>
+
 <div class="container">
    <div id="errormessage"></div>
    <div class="col-lg-7 card server-form-panel">

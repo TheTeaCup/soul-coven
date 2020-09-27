@@ -4,7 +4,10 @@ const Quick = require("quick.db");
 const Discord = require("discord.js");
 const fs = require("fs");
 
-require("./Web/index.js");
+Coven.on("ready", () => {
+    status = 2;
+    require("./Web/index.js");  
+});
 
 /*
 Coven.on("message", async message => {

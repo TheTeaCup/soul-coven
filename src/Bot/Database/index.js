@@ -21,5 +21,7 @@ module.exports = Mythical => {
   Mythical.profile = new enmap({ name:"profile", fetchAll: true });
   
   Mythical.pen = new enmap({ name: "pen-pal" });
+  
+  Mythical.chat = new enmap({ name: "chat" })
 
  };

@@ -1,0 +1,130 @@
+<%- include('../Blocks/Header.ejs', { Coven, user, Page, Redirect: "/forum", pageType: "" }) %>
+
+<!-- /chat/new -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://mythicalbots.xyz/css/form.css">
+<script src="https://use.fontawesome.com/bfddc8ce66.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous" async></script>
+
+<style>
+  .tagstext {
+    text-align: center;
+    margin: auto;
+    margin-top: 25px;
+    font-weight: bold;
+    font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    opacity: 0.9;
+	text-transform: uppercase;
+  }
+  .tagsbox {
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border: 2px dashed white;
+    border-radius: 4px;
+    max-width: 35%;
+    width: auto;
+    height: auto;
+    margin: auto;
+    padding: 8px;
+  }
+  .tagbutton {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    display: inline-block;
+    width: auto;
+    background: #1b1b1b;
+    color: #fff;
+    padding: 5px;
+    opacity: 0.75;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: border-bottom 0.2s ease-in-out;
+    font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+  }
+  .tagbutton:hover {
+    opacity: 1;
+    color: white;
+    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255));
+  }
+</style>
+
+<%- include('../Blocks/ToolTip.ejs') %>
+
+<main>
+  <div class="jumbotron secondary-jumbotron bg-transparent">
+      <div class="container">
+            <h1>Soul Coven - New Chat </h1>
+            <center><h2 style="font-size:20px;">Create a new chat with someone!</h2></center>
+      </div>
+  </div>
+
+<div class="container">
+<center>
+<div class="row" role="alert">
+<div class="col-md-12" role="alert">
+<div class="alert alert-primary alert-danger" role="alert">
+<h4 class="alert-heading"> Still working on this page! </h4>
+</div>
+</div>
+</div>
+</center>
+</div>
+
+
+<div class="container">
+   <div id="errormessage">
+   
+   <% if(reqUser) { %>
+<div class="container">
+<center>
+<div class="row" role="alert">
+<div class="col-md-12" role="alert">
+<div class="alert alert-primary alert-primary" role="alert">
+<h4 class="alert-heading"> User ID was provided! </h4>
+</div>
+</div>
+</div>
+</center>
+</div>
+<% } %>
+
+
+   </div>
+   <div class="col-lg-7 card server-form-panel">
+      <article class="card-body">
+         <form action="" method="post" role="form">
+            <input type="hidden" name="id" value="<%= user.id %>">
+
+              <h5>User to Message? <span style="color:red">*</span></h5>
+             <div class="form-group input-group">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user" style="padding:0"></i></span>
+               </div>
+               <input name="name" id="name" class="form-control xtags" placeholder="What should we name this post?" type="text" value="<%= reqUser %>" required>
+            </div>
+           <p class="help-block">- Need help with getting a users ID? Well just do <code>c!userinfo @user</code> in our server <br> - For more than one user add a <code> , </code> <br> - Ex: <code> 123456789,123456789 </code>
+            </p>
+            <br>
+     
+
+            <hr>
+            
+            <div class="form-group">
+               <button type="submit" class="btn btn-red btn-block" id="ssubm" name="ssubm" onclick="return xcheck();">Create Message</button>
+            </div>
+         </form>
+      </article>
+   </div>
+</div>
+  
+</main>
+
+<script>
+   autosize($('textarea'));
+</script>

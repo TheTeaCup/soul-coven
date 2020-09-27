@@ -23,17 +23,6 @@
          </center>
       </div>
    </div>
-   <div class="container">
-      <center>
-         <div class="row" role="alert">
-            <div class="col-md-12" role="alert">
-               <div class="alert alert-primary alert-danger" role="alert">
-                  <h4 class="alert-heading"> Still working on this page! </h4>
-               </div>
-            </div>
-         </div>
-      </center>
-   </div>
    <% function getAge(DOB) {
       var today = new Date();
       var birthDate = new Date(DOB);
@@ -92,7 +81,7 @@
          <% all.forEach(app => { %>
          <% if(!app.match) { %>
          <div class="col-lg-4 col-md-6 col-sm-12">
-            <a class="no-color" href="/me/pen-pal/<%= app.id %>/status">
+            <a class="no-color" rel="nofollow" target="blank" href="/me/pen-pal/<%= app.id %>/status">
                <div class="card preview-card">
                   <div class="card-body">
                      <div class="head">
@@ -164,11 +153,11 @@
             - click the purple link below!
             - fill out form!
             
-            <a style="color:purple" href="/me/pen-pal/match">Match Form</a>
+            <u><a style="color:purple" rel="nofollow" target="blank" href="/me/pen-pal/match">Match Form</a></u>
 </code></pre>
                </div>
             </div>
          </div>
       </div>
    </center>
-</main>f
+</main>
